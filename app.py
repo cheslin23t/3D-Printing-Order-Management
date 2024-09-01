@@ -1,16 +1,16 @@
-from flask import Flask, render_template, send_from_directory, session
+from flask import Flask, render_template, send_from_directory, session, current_app
 from dotenv import load_dotenv
 import os
 import ngrok
 load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv('flask_session')
-activeRoutes=['index']
+activeRoutes=['index', 'admin']
 
 from importlib import import_module
 from datetime import timedelta
-listener = ngrok.forward(addr="localhost:443", authtoken_from_env=True, domain="tough-engaged-wildcat.ngrok-free.app")
-print(f"Ingress established at {listener.url()}")
+#listener = ngrok.forward(addr="localhost:443", authtoken_from_env=True, domain="repeatedly-organic-ghost.ngrok-free.app")
+#print(f"Ingress established at {listener.url()}")
 for route in activeRoutes:
     print(route)
     m = import_module(f'modules.{route}.index')
@@ -20,7 +20,9 @@ for route in activeRoutes:
 def send_report(path):
     return send_from_directory('static', path)
 
-
+@app.route('/favicon.ico')
+def flask_logo():
+    return current_app.send_static_file('favicon.ico')
 
 @app.template_filter('humanize')
 def pretty_date(time=False):
@@ -65,6 +67,5 @@ def pretty_date(time=False):
     if day_diff < 365:
         return str(day_diff // 30) + " months ago"
     return str(day_diff // 365) + " years ago"
-
 
 app.run(host='localhost', port=443)
