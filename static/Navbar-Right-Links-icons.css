@@ -15,7 +15,11 @@
   width: calc(var(--bs-icon-size) * 1.5);
   height: calc(var(--bs-icon-size) * 1.5);
 }
-
+@media screen and (min-width:1770px) {
+  #newL {
+    display: contents;
+  }
+}
 .bs-icon-sm {
   --bs-icon-size: 1rem;
 }
