@@ -1,7 +1,7 @@
 from flask import Flask, render_template, send_from_directory, session, current_app
 from dotenv import load_dotenv
 import os
-import ngrok
+#import ngrok
 load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv('flask_session')

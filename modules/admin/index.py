@@ -59,4 +59,7 @@ def sendRoute():
     return "<body style='background-color: lime;'><center><h1>Success</h1></center></body>"
         
     
-
+@app.route('/test')
+def test():
+    testin = [{"name": "Benchy", "price": 1, "Customer": "Joe", }]
+    return render_template('prints.html')

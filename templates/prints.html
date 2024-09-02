@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark" lang="en" data-bss-forced-theme="dark">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/Dark-Mode-Switch.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/css/theme.bootstrap_4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="/static/Ludens---1-Dark-mode-Index-Table-with-Search-Filters.css">
+    <link rel="stylesheet" href="/static/Navbar-Right-Links-icons.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md bg-body-secondary py-3">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"><span class="bs-icon-sm bs-icon-rounded d-flex justify-content-center align-items-center me-2 bs-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-3d-cube-sphere" style="width: inherit;height: inherit;color: rgb(191,140,255);">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M6 17.6l-2 -1.1v-2.5"></path>
+                        <path d="M4 10v-2.5l2 -1.1"></path>
+                        <path d="M10 4.1l2 -1.1l2 1.1"></path>
+                        <path d="M18 6.4l2 1.1v2.5"></path>
+                        <path d="M20 14v2.5l-2 1.12"></path>
+                        <path d="M14 19.9l-2 1.1l-2 -1.1"></path>
+                        <path d="M12 12l2 -1.1"></path>
+                        <path d="M18 8.6l2 -1.1"></path>
+                        <path d="M12 12l0 2.5"></path>
+                        <path d="M12 18.5l0 2.5"></path>
+                        <path d="M12 12l-2 -1.12"></path>
+                        <path d="M6 8.6l-2 -1.1"></path>
+                    </svg></span><span style="font-size: 21px;">Printed</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-2">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#">First Item</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Second Item</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Third Item</a></li>
+                </ul><a class="btn btn-primary ms-md-2" role="button" href="#">Button</a>
+            </div>
+        </div>
+    </nav>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr></tr>
+            </thead>
+            <tbody>
+                <tr></tr>
+                <tr></tr>
+            </tbody>
+        </table>
+    </div>
+    <h1 style="text-align: center;">Prints Management</h1>
+    <p style="text-align: center;">New enteries must be made with the shortcut</p>
+    <br>
+    <div class="container-fluid" style="margin-bottom: 50px;max-width: 85%;">
+        <div class="card" id="TableSorterCard" style="border-style: none;border-radius: 6.5px;">
+            <div class="card-header py-3" style="border-width: 0px;background: rgb(120, 126, 157);">
+                <div class="row table-topper align-items-center">
+                    <div class="col-12 col-sm-5 col-md-6 text-start" style="margin: 0px;padding: 5px 15px;">
+                        <p class="m-0 fw-bold" style="color: rgb(255,255,255);">Prints</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive" style="border-top-style: none;background: #171921;">
+                        <table class="table table-striped table tablesorter" id="ipi-table">
+                            <thead class="thead-dark" style="background: rgb(33,37,48);border-width: 0px;border-color: rgb(0,0,0);border-bottom-color: #21252F;">
+                                <tr style="border-style: none;border-color: rgba(255,255,255,0);background: #21252f;"></tr>
+                            </thead>
+                            <tbody class="text-center" style="border-top-width: 0px;">
+                                <tr style="background: #262a38;">
+                                    <td>
+                                        <form><button class="btn btn-success float-end" type="submit" style="padding: 6px 12px;margin: 0px; margin-right: 5px; margin-left: 7px;">Save</button>
+                                            
+                                            <input class="form-control" type="text" style="max-width: 164px;height: 36px;padding: 16px 12px;margin-bottom: -36px;margin-left: 7px;" name="printName" placeholder="Print Name"><input class="form-control" type="text" style="max-width: 164px;height: 36px;padding: 16px 12px;margin-bottom: -36px;margin-left: 177px;" name="custName" placeholder="Customer's Name"><input class="form-control" type="number" style="max-width: 116px;height: 36px;padding: 16px 12px;margin-bottom: -36px;margin-left: 347px;" name="printCost" placeholder="Print Cost"><input class="form-control" type="text" style="max-width: 164px;height: 36px;padding: 16px 12px;margin-bottom: -36px;margin-left: 469px;" name="printLink" placeholder="3D Print File Link"><select class="form-select float-end" style="max-width: 150px;min-width: auto;margin-left: 6px;" name="Delivered">
+                                                <option value="false" selected="">Not Delivered</option>
+                                                <option value="true">Delivered</option>
+                                            </select><select class="form-select float-end" style="max-width: 144px;min-width: auto;margin-left: 6px;" name="Paid">
+                                                <option value="false" selected="">Unpaid</option>
+                                                <option value="true">Paid</option>
+                                            </select><select class="form-select float-end" style="max-width: 132px;min-width: auto;margin-left: 6px;" name="Printed">
+                                                <option value="False" selected="">Not Printed</option>
+                                                <option value="True">Printed</option>
+                                            </select><select class="form-select float-end" style="max-width: 148px;min-width: auto;" name="Accepted">
+                                                <option value="false" selected="">Not Accepted</option>
+                                                <option value="colin">Accepted by Colin</option>
+                                                <option value="kavi">Accepted by Kavi</option>
+                                            </select>
+                                            <a class="float-end" data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom" href="https://www.thingiverse.com/thing:6720075" style="text-overflow: ellipsis;overflow: hidden;white-space: nowrap;max-width: 262px;margin-top: 7px;padding-bottom: 0px; margin-right: 7px;" title="This can only be edited via the shortcut.">Add image in shortcut</a>
+                                            <p class="float-end" data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom"  style="text-overflow: ellipsis;overflow: hidden;white-space: nowrap;max-width: 85px;margin-top: 7px;padding-bottom: 0px; margin-right: 20px;" title="This can only be added via the shortcut."> </a>
+                                            
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/bs-init.js"></script>
+    <script src="/static/Dark-Mode-Switch-darkmode.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/jquery.tablesorter.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/widgets/widget-filter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/widgets/widget-storage.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="/static/Ludens---1-Dark-mode-Index-Table-with-Search-Filters-Ludens---1-Index-Table-with-Search--Sort-Filters-v20-1.js"></script>
+    <script src="/static/Ludens---1-Dark-mode-Index-Table-with-Search-Filters-Ludens---1-Index-Table-with-Search--Sort-Filters-v20.js"></script>
+    <script src="/static/Ludens---1-Dark-mode-Index-Table-with-Search-Filters-main.js"></script>
+</body>
+
+</html>
