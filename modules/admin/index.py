@@ -1,9 +1,31 @@
-from flask import render_template, Blueprint, session, request, abort
-import pprint
+from flask import render_template, Blueprint, session, request, abort, redirect, url_for, session, jsonify
+from webauthn import generate_registration_options, verify_registration_response
+
 import os
 from ..utils.database import mydb
 mycursor = mydb.cursor(dictionary=True)
 app = Blueprint('admin', __name__, template_folder='../../templates')
+
+def get_registration_options(user_id, user_name, user_display_name):
+    options = generate_registration_options(
+        rp_name="Printed",
+        rp_id="chesdev.me",  # Set the RP ID to your main domain
+        rp_id_alternates=["localhost"],  # Include localhost as an alternate RP ID
+        user_id=user_id,  # Replace with your user identifier
+        user_name=user_name,  # Replace with your username
+        user_display_name=user_display_name  # Replace with your user's display name
+    )
+    return options
+
+def verify_registration_response(response, expected_challenge, user):
+    verification = verify_registration_response(
+        credential=response,
+        expected_challenge=expected_challenge,
+        expected_origin=["http://localhost", "https://chesdev.me"],
+        expected_rp_id="chesdev.me",  # Set your main RP ID here
+        require_user_verification=True
+    )
+    return verification
 
 @app.route('/admin/send', methods=['POST'])
 def sendRoute():
@@ -69,7 +91,9 @@ def sendRoute():
         
     
 @app.route('/admin')
-def test():
+def adminRoute():
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('index.index'))
     # Fetch data from the database
     mycursor.execute("SELECT * FROM Prints")
     prints_data = mycursor.fetchall()

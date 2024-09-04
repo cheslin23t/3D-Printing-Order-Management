@@ -6,7 +6,10 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv('flask_session')
 activeRoutes=['index', 'admin']
-
+from flask_session import Session
+app.config['SECRET_KEY'] = os.getenv('flask_session')
+app.config['SESSION_TYPE'] = 'filesystem'
+Session(app)
 from importlib import import_module
 from datetime import timedelta
 #listener = ngrok.forward(addr="localhost:443", authtoken_from_env=True, domain="repeatedly-organic-ghost.ngrok-free.app")
