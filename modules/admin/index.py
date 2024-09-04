@@ -46,20 +46,33 @@ def sendRoute():
     print_cost = data['data']['printCost']
     payment = data['data']['payment']
     image = data['data']['image']
-    
+    printed = data['data']['printed']
+    accepted = data['data']['accepted']
+    if accepted == 'no':
+        accepted = 0
+    elif accepted == 'colin':
+        accepted = 1
+    elif accepted == 'kavi':
+        accepted = 2
+    paid = data['data']['paid']
+    delivered = data['data']['delivered']
     # Execute the query
     mycursor.execute(
         """
         INSERT INTO Prints (Seller, PrintName, Customer, PrintCost, Payment, Image, Printed, Accepted, Paid, Delivered)
-        VALUES (%s, %s, %s, %s, %s, %s, TRUE, TRUE, TRUE)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """, 
-        (seller, print_name, customer, print_cost, payment, image)
+        (seller, print_name, customer, print_cost, payment, image, printed, accepted, paid, delivered)
     )
     mydb.commit()  
     return "<body style='background-color: lime;'><center><h1>Success</h1></center></body>"
         
     
-@app.route('/test')
+@app.route('/admin')
 def test():
-    testin = [{"name": "Benchy", "price": 1, "Customer": "Joe", }]
-    return render_template('prints.html')
+    # Fetch data from the database
+    mycursor.execute("SELECT * FROM Prints")
+    prints_data = mycursor.fetchall()
+
+    # Pass the fetched data to the template
+    return render_template('prints.html', prints=prints_data)
