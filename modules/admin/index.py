@@ -161,6 +161,7 @@ def verify_registration():
         print(f"Verification failed: {str(e)}")
         abort(400)
 
+
 @app.route('/admin/send', methods=['POST'])
 def sendRoute():
     print(request.get_json())
