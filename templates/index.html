@@ -67,114 +67,141 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
-        function base64urlDecode(base64url) {
-    // Replace '-' with '+' and '_' with '/'
+        // Convert Base64 URL to Uint8Array
+function base64urlDecode(base64url) {
     base64url = base64url.replace(/-/g, '+').replace(/_/g, '/');
-    // Add padding
-    while (base64url.length % 4) {
-        base64url += '=';
+    const pad = base64url.length % 4;
+    if (pad) {
+        base64url += '='.repeat(4 - pad);
     }
-    return atob(base64url);
+    const str = atob(base64url);
+    const arr = new Uint8Array(str.length);
+    for (let i = 0; i < str.length; i++) {
+        arr[i] = str.charCodeAt(i);
+    }
+    return arr;
 }
-        async function adminLogin() {
-            if (!window.PublicKeyCredential) {
-                console.error('WebAuthn is not supported on this browser.');
-                return;
-            }
-    
-            try {
-                const response = await fetch('/get-login-options', {
-                    method: 'GET'
-                });
-    
-                const options = await response.json();
-                options.challenge = Uint8Array.from(atob(options.challenge), c => c.charCodeAt(0));
-                options.allowCredentials = options.allowCredentials.map(cred => ({
-                    id: Uint8Array.from(atob(cred.id), c => c.charCodeAt(0)),
-                    type: cred.type
-                }));
-    
-                const credential = await navigator.credentials.get({ publicKey: options });
-    
-                if (credential) {
-                    const loginResponse = await fetch('/verify-login', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            id: credential.id,
-                            rawId: Array.from(new Uint8Array(credential.rawId)),
-                            type: credential.type,
-                            response: {
-                                authenticatorData: Array.from(new Uint8Array(credential.response.authenticatorData)),
-                                clientDataJSON: Array.from(new Uint8Array(credential.response.clientDataJSON)),
-                                signature: Array.from(new Uint8Array(credential.response.signature)),
-                                userHandle: credential.response.userHandle ? Array.from(new Uint8Array(credential.response.userHandle)) : null
-                            }
-                        })
-                    });
-    
-                    const result = await loginResponse.json();
-    
-                    if (result.success) {
-                        window.location.href = '/admin';
-                    } else {
-                        console.error('Login failed.');
-                    }
-                }
-            } catch (error) {
-                console.error('Login failed.', error);
-            }
-        }
-    
-        async function adminRegister() {
-            if (!window.PublicKeyCredential) {
-                console.error('WebAuthn is not supported on this browser.');
-                return;
-            }
-    
-            try {
-                const response = await fetch('/get-registration-options', {
-                    method: 'GET'
-                });
-    
-                const options = await response.json();
-        options.challenge = Uint8Array.from(base64urlDecode(options.challenge), c => c.charCodeAt(0));
-        options.user.id = Uint8Array.from(base64urlDecode(options.user.id), c => c.charCodeAt(0));
+function bufferDecode(value) {
+    // Handle cases where the value might not be in base64url format
+    const base64 = value.replace(/_/g, '/').replace(/-/g, '+');
+    const binaryString = atob(base64);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
 
-                const credential = await navigator.credentials.create({ publicKey: options });
-    
-                if (credential) {
-                    const registerResponse = await fetch('/verify-registration', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            id: credential.id,
-                            rawId: Array.from(new Uint8Array(credential.rawId)),
-                            type: credential.type,
-                            response: {
-                                clientDataJSON: Array.from(new Uint8Array(credential.response.clientDataJSON)),
-                                attestationObject: Array.from(new Uint8Array(credential.response.attestationObject))
-                            }
-                        })
-                    });
-    
-                    const result = await registerResponse.json();
-    
-                    if (result.success) {
-                        console.log('Registration successful.');
-                    } else {
-                        console.error('Registration failed.');
-                    }
+    for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+
+    return bytes;
+}
+function preformatPublicKeyCredentialCreateOptions(options) {
+    options.challenge = bufferDecode(options.challenge);
+    options.user.id = bufferDecode(options.user.id);
+
+    return options;
+}
+// Admin Registration Process
+async function adminRegister() {
+    try {
+        // Fetch registration options from the server
+        const registrationOptions = await fetch("/get-registration-options").then(res => res.json());
+
+        // Preformat the options for WebAuthn API (you may already have this)
+        const publicKey = preformatPublicKeyCredentialCreateOptions(registrationOptions);
+
+        // Create credentials
+        const credential = await navigator.credentials.create({ publicKey });
+
+        // Ensure rawId is converted to base64url before sending to the server
+        const rawId = bufferToBase64url(credential.rawId);
+        const clientDataJSON = bufferToBase64url(credential.response.clientDataJSON);
+        const attestationObject = bufferToBase64url(credential.response.attestationObject);
+
+        // Send registration details to the server for verification
+        const response = await fetch("/verify-registration", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: credential.id,
+                rawId: rawId, // Send rawId to the server
+                type: credential.type,
+                response: {
+                    clientDataJSON: clientDataJSON,
+                    attestationObject: attestationObject
                 }
+            })
+        });
+
+        if (response.ok) {
+            alert("Registration successful!");
+        } else {
+            alert("Registration failed: " + await response.text());
+        }
+    } catch (err) {
+        console.error("Error during registration:", err);
+    }
+}
+
+// Helper function to convert ArrayBuffer to base64url
+function bufferToBase64url(buffer) {
+    const base64String = btoa(String.fromCharCode(...new Uint8Array(buffer)));
+    return base64String.replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
+}
+
+
+        
+        // Admin Login
+        async function adminLogin() {
+            try {
+                const response = await fetch('/get-login-options');
+                const options = await response.json();
+        
+                function base64urlDecode2(base64url) {
+                    let base64 = base64url.replace(/-/g, '+').replace(/_/g, '/');
+                    let padding = '='.repeat((4 - base64.length % 4) % 4);
+                    base64 += padding;
+                    return Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+                }
+
+                options.challenge = base64urlDecode2(options.challenge);
+                // options.allowCredentials.forEach(cred => {
+                //     cred.id = Uint8Array.from(atob(cred.id), c => c.charCodeAt(0));
+                // });
+        
+                const credential = await navigator.credentials.get({ publicKey: options });
+        
+                const loginResponse = await fetch('/verify-authentication', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id: credential.id,
+                        rawId: Array.from(new Uint8Array(credential.rawId)),
+                        type: credential.type,
+                        response: {
+                            clientDataJSON: Array.from(new Uint8Array(credential.response.clientDataJSON)),
+                            authenticatorData: Array.from(new Uint8Array(credential.response.authenticatorData)),
+                            signature: Array.from(new Uint8Array(credential.response.signature)),
+                            userHandle: credential.response.userHandle ? Array.from(new Uint8Array(credential.response.userHandle)) : null
+                        }
+                    })
+                });
+        
+                const result = await loginResponse.json();
+                if (result.status === "success") {
+                    alert('Login successful!');
+                } else {
+                    alert('Login failed.');
+                }
+        
             } catch (error) {
-                console.error('Registration failed.', error);
+                console.error('Error during login:', error);
             }
         }
-    </script>
+        </script>
     
     <button class="" onclick="adminRegister()"></button>
 </body>
