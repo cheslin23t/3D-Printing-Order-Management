@@ -11,16 +11,56 @@
 </head>
 <body>
     <script src="/static/index.js"></script>
+    {% if user %}
+    <script>document.body.classList.toggle('admin');</script>
     <nav class="navbar bg-dark" data-bs-theme="dark">
         <a class="navbar-brand" href="#">
             <div class="navbarT">
                 <h2 onclick="document.body.classList.toggle('gold');">Printed</h2>
             </div>
         </a>
-        <p>|</p>
-        <button class="btn btn-outline-light ms-auto" onclick="adminLogin()">Admin Login</button>
+        <a href='/admin' class="btn btn-outline-light" style="position: absolute; right: 2.85cm">Logged in as {{ user }}</a>
+        <a href='/admin/logout' class="btn btn-outline-light" style="margin-right: 1%">Logout</a>
+        
     </nav>
+    {% else %}
+    
+    <nav class="navbar bg-dark" data-bs-theme="dark">
+        <a class="navbar-brand" href="#">
+            <div class="navbarT">
+                <h2 onclick="document.body.classList.toggle('gold');">Printed</h2>
+            </div>
+        </a>
 
+        <button class="btn btn-outline-light ms-auto" style="margin-right: 1%;" data-bs-toggle="modal" data-bs-target="#loginModal">Admin Login</button>
+    </nav>
+    <div class="modal fade " id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="loginModalLabel">Admin Secure Gate</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="/admin/verify" method="post">
+                <div class="mb-3">
+                    <label for="accessCode" class="form-label">Secure Access Code</label>
+                    <input type='text' class="form-control"  id="accessCode" name="accessCode" aria-describedby="accessCodeHelp">
+                    <div id="accessCodeHelp" class="form-text">You can get this code via the app.</div>
+                </div>
+                <button type="submit" class="btn btn-success">Login</button>
+                
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    {% endif %}
     <canvas id="particleCanvas"></canvas>
 
     <div class="accent-lines">
@@ -54,7 +94,7 @@
         <div></div>
     </div>
     <div class="hero-spacer"></div>
-
+    <br>
     <div class="content-section">
         <div class="content-acc">
             <div></div>
@@ -66,7 +106,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script>
+    <!-- <script>
         // Convert Base64 URL to Uint8Array
 function base64urlDecode(base64url) {
     base64url = base64url.replace(/-/g, '+').replace(/_/g, '/');
@@ -203,6 +243,6 @@ function bufferToBase64url(buffer) {
         }
         </script>
     
-    <button class="" onclick="adminRegister()"></button>
+    <button class="" onclick="adminRegister()"></button> -->
 </body>
 </html>
