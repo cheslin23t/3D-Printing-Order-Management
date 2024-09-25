@@ -26,7 +26,9 @@ def send_report(path):
 @app.route('/favicon.ico')
 def flask_logo():
     return current_app.send_static_file('favicon.ico')
-
+@app.route('/robots.txt')
+def flask_robots():
+    return current_app.send_static_file('robots.txt')
 @app.template_filter('humanize')
 def pretty_date(time=False):
     """

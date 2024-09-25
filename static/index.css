@@ -17,7 +17,7 @@ body {
 .threedobj { display: block; }
 body.gold .header h2 ,
 body.gold p,
-body.gold > * > * :not(.contact-btn) {
+body.gold > * > * :not(.contact-btn, div, span, input, select, textarea, label, .keep, a) {
     filter: invert(1) brightness(4.7);
 }
 body.gold .header h2 a{
@@ -705,4 +705,187 @@ body.admin .content-section,
 body.admin .content-section ::before,
 body.admin .content-section ::after{
     filter: invert(1) brightness(4.4) opacity(1) hue-rotate(50deg);
+}
+/* Reverse 'colorize' animation */
+.reverse-colorize {
+  animation: colorize 2s reverse forwards;
+}
+
+/* Reverse 'loop' animation */
+.reverse-loop {
+  animation: loop 5s reverse forwards;
+}
+
+/* Reverse 'btn-rot' animation */
+.reverse-btn-rot {
+  animation: btn-rot 3s reverse forwards;
+}
+
+/* Reverse 'loadrot' animation */
+.reverse-loadrot {
+  animation: loadrot 2s reverse forwards;
+}
+
+/* Reverse 'spotlight' animation */
+.reverse-spotlight {
+  animation: spotlight 4s reverse forwards;
+}
+
+/* Reverse 'load' animation */
+.reverse-load {
+  animation: load 2s reverse forwards;
+}
+
+/* Reverse 'pulse' animation */
+.reverse-pulse {
+  animation: pulse 3s reverse forwards;
+}
+
+/* Reverse 'up' animation */
+.reverse-up {
+  animation: up 2s reverse forwards;
+}
+
+/* Reverse 'load3' animation */
+.reverse-load3 {
+  animation: load3 2s reverse forwards;
+}
+
+/* Reverse 'load2' animation */
+.reverse-load2 {
+  animation: load2 2s reverse forwards;
+}
+
+/* Reverse 'accentload' animation */
+.reverse-accentload {
+  animation: accentload 2s reverse forwards;
+}
+
+/* Reverse 'accentload2' animation */
+.reverse-accentload2 {
+  animation: accentload2 2s reverse forwards;
+}
+
+/* Reverse 'accentload3' animation */
+.reverse-accentload3 {
+  animation: accentload3 2s reverse forwards;
+}
+
+/* Reverse 'mountainload1' animation */
+.reverse-mountainload1 {
+  animation: mountainload1 2s reverse forwards;
+}
+
+/* Reverse 'mountainload2' animation */
+.reverse-mountainload2 {
+  animation: mountainload2 2s reverse forwards;
+}
+
+.overlay {
+    position: absolute;      /* Absolute positioning to avoid affecting layout */
+    bottom: -100vh;         /* Start hidden below the viewport */
+    left: 0;
+    right: 0;
+    height: 100vh;          /* Full height */
+    z-index: -1;            /* Lowest z-index */
+    transition: bottom 1.5s ease-out, opacity 2s ease-in-out; /* Transitions for rising and fading */
+    visibility: hidden;      /* Start as hidden */
+    opacity: 0;             /* Fully transparent */
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+:root {
+  --neon-blue: #03e9f4;
+  --bg: #050801;
+}
+
+
+
+.hu {
+  position: relative;
+  display: inline-block;
+  padding: 25px 30px;
+  margin: 40px 0;
+  color: var(--neon-blue);
+  font-size: 24px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.5s;
+  letter-spacing: 4px;
+  overflow: hidden;
+  -webkit-box-reflect: below 1px linear-gradient(transparent, #0003);
+  animation: fadeIn 4s ease-in-out;
+}
+
+.hu:hover {
+  background: var(--neon-blue);
+  color: var(--bg);
+  box-shadow: 0 0 5px var(--neon-blue), 0 0 25px var(--neon-blue), 0 0 50px var(--neon-blue), 0 0 200px var(--neon-blue);
+  transition-delay: .4s;
+}
+
+.hu span {
+  position: absolute;
+  display: block;
+}
+
+.hu span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--neon-blue));
+}
+
+.hu:hover span:nth-child(1) {
+  left: 100%;
+  transition: .5s;
+}
+
+
+.hu span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  height: 100%;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, var(--neon-blue));  
+}
+
+.hu:hover span:nth-child(2) {
+  top: 100%;
+  transition: .5s;
+  transition-delay: .1s;
+}
+
+
+.hu span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(270deg, transparent, var(--neon-blue));
+}
+
+.hu:hover span:nth-child(3) {
+  right: 100%;
+  transition: .5s;
+  transition-delay: .2s;
+}
+
+.hu span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  height: 100%;
+  width: 2px;
+  background: linear-gradient(360deg, transparent, var(--neon-blue));
+}
+
+.hu:hover span:nth-child(4) {
+  bottom: 100%;
+  transition: .5s;
+  transition-delay: .3s;
 }
