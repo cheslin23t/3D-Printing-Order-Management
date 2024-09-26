@@ -681,7 +681,7 @@ body.admin .header > div.mid-spot {
 }
 body.admin .header h2 ,
 body.admin p,
-body.admin > * > * :not(.contact-btn) {
+body.admin > * > * :not(.contact-btn, div, span, input, select, textarea, label, .keep, a) {
     filter: invert(1) brightness(4.7) hue-rotate(50deg);
 }
 body.admin .header h2 a{
