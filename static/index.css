@@ -889,3 +889,8 @@ body.admin .content-section ::after{
   transition: .5s;
   transition-delay: .3s;
 }
+
+#customModelAddon
+#customModelAddon option {
+    cursor: pointer;
+}
