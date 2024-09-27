@@ -433,27 +433,28 @@ function bufferToBase64url(buffer) {
                     <h4 class="card-title">Order Menu</h5>
                 </div>
                 <div class="card-body --bs-secondary-color">
+                    <form method='post' action='/order/submit'>
                     <div style="margin-left: 3%; margin-right: 3%;">
                         <label for="basic-url" class="form-label">Contact Information</label>
                         <div class="row">
                             <div class="col">
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control .bg-secondary.bg-gradient"
-                                        placeholder="Full Name" aria-label="Username" aria-describedby="basic-addon1">
+                                        placeholder="Full Name" name='fullName' aria-label="Username" required aria-describedby="basic-addon1">
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control .bg-secondary.bg-gradient"
-                                        placeholder="Email" aria-label="Email Address" aria-describedby="basic-addon2">
+                                        placeholder="Email" name='email' aria-label="Email Address" required aria-describedby="basic-addon2">
                                     <span class="input-group-text" id="basic-addon2">@irvingtonschools.org</span>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">+1</span>
-                                    <input type="text" class="form-control .bg-secondary.bg-gradient"
-                                        placeholder="(123) 456 - 7890" aria-label="Phone Number"
+                                    <input type="tel" class="form-control .bg-secondary.bg-gradient"
+                                        placeholder="(123) 456 - 7890" name='phoneNumber' aria-label="Phone Number"
                                         aria-describedby="basic-addon2">
 
                                 </div>
@@ -467,9 +468,9 @@ function bufferToBase64url(buffer) {
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="customModelAddon" class="form-label">Would you like a custom-made
-                                            model?</label>
+                                            model? (10% additional cost)</label>
                                         <select class="form-select .bg-secondary.bg-gradient" id="customModelAddon"
-                                            aria-label="Custom model addon">
+                                            aria-label="Custom model addon" name='printStuff'>
                                             <option value="no" selected>No</option>
                                             <option value="yes">Yes</option>
                                         </select>
@@ -536,6 +537,7 @@ function bufferToBase64url(buffer) {
 
 
                     </div>
+                </form>
                 </div>
                 <div class="card-footer text-body-secondary">
                     <button type="button" class="btn btn-secondary" onclick="byebye()">Cancel</button>
