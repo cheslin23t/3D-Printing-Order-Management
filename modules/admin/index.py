@@ -1,45 +1,57 @@
 # admin.py (Flask Blueprint)
 from flask import render_template, Blueprint, session, request, jsonify, abort, redirect
-from webauthn import generate_registration_options, generate_authentication_options, verify_registration_response, verify_authentication_response
+from webauthn import (
+    generate_registration_options,
+    generate_authentication_options,
+    verify_registration_response,
+    verify_authentication_response,
+)
 import os
 import base64
 import binascii
 import uuid
 from ..utils.database import mydb
+
 login_keys = []
-app = Blueprint('admin', __name__, template_folder='../../templates')
+app = Blueprint("admin", __name__, template_folder="../../templates")
 mycursor = mydb.cursor(dictionary=True)
 import secrets
 
+
 def generate_secure_code():
     # Generate a random 12-digit number
-    return ''.join([str(secrets.randbelow(10)) for _ in range(12)])
-@app.route('/admin/verify', methods=['GET', "POST"])
+    return "".join([str(secrets.randbelow(10)) for _ in range(12)])
+
+
+@app.route("/admin/verify", methods=["GET", "POST"])
 def verify_registration():
-    if 'admin_logged_in' in session:
-        return redirect('/admin')
+    if "admin_logged_in" in session:
+        return redirect("/admin")
     if request.method == "POST":
         success = False
         for key in login_keys:
-            if key['code'] == request.form.get('accessCode'):
-                session['admin_logged_in'] = True
-                session['user'] = key['user']
-                return redirect('/admin')
-        return redirect('/')
+            if key["code"] == request.form.get("accessCode"):
+                session["admin_logged_in"] = True
+                session["user"] = key["user"]
+                return redirect("/admin")
+        return redirect("/")
     return "hey ;)"
-@app.route('/admin/logout')
+
+
+@app.route("/admin/logout")
 def logout():
-    session.pop('admin_logged_in', None)
-    session.pop('user', None)
-    return redirect('/')
-@app.route('/admin/generate_code', methods=['POST'])
+    session.pop("admin_logged_in", None)
+    session.pop("user", None)
+    return redirect("/")
+
+
+@app.route("/admin/generate_code", methods=["POST"])
 def gen_code():
     data = request.get_json()
+
     def has_expected_format(d):
-        expected_format = {
-            'auth': str,
-            'user': str
-        }
+        expected_format = {"auth": str, "user": str}
+
         def check_format(d, format_spec):
             if isinstance(format_spec, dict):
                 if not isinstance(d, dict):
@@ -52,40 +64,46 @@ def gen_code():
                 return True
             else:
                 return isinstance(d, format_spec)
+
         return check_format(d, expected_format)
+
     if has_expected_format(data) is False:
         abort(404)
-    if data['auth'] != os.getenv('admin_auth'):
+    if data["auth"] != os.getenv("admin_auth"):
         abort(404)
     v_code = generate_secure_code()
-    newEntry = {'user': data['user'], 'code': v_code}
+    newEntry = {"user": data["user"], "code": v_code}
     login_keys.append(newEntry)
     return v_code
-@app.route('/admin')
+
+
+@app.route("/admin")
 def admin():
-    if 'admin_logged_in' not in session:
-        return redirect('/admin/verify')
+    if "admin_logged_in" not in session:
+        return redirect("/admin/verify")
     # Fetch data from the database
     mycursor.execute("SELECT * FROM Prints")
     prints_data = mycursor.fetchall()
     # Pass the fetched data to the template
-    return render_template('prints.html', prints=prints_data)
+    return render_template("prints.html", prints=prints_data)
 
-@app.route('/admin/send', methods=['POST'])
+
+@app.route("/admin/send", methods=["POST"])
 def sendRoute():
     print(request.get_json())
     data = request.get_json()
+
     def has_expected_format(d):
         expected_format = {
-            'seller': str,
-            'data': {
-                'printName': str,
-                'customer': str,
-                'printCost': int,
-                'payment': str,
-                'image': str
+            "seller": str,
+            "data": {
+                "printName": str,
+                "customer": str,
+                "printCost": int,
+                "payment": str,
+                "image": str,
             },
-            'auth': str
+            "auth": str,
         }
 
         def check_format(d, format_spec):
@@ -102,36 +120,52 @@ def sendRoute():
                 return isinstance(d, format_spec)
 
         return check_format(d, expected_format)
+
     if has_expected_format(data) is False:
         abort(404)
-    if data['auth'] != os.getenv('admin_auth'):
+    if data["auth"] != os.getenv("admin_auth"):
         abort(404)
-    seller = data['seller']
-    print_name = data['data']['printName']
-    customer = data['data']['customer']
-    print_cost = data['data']['printCost']
-    payment = data['data']['payment']
-    image = data['data']['image']
-    printed = data['data']['printed']
-    accepted = data['data']['accepted']
-    if accepted == 'no':
+    seller = data["seller"]
+    print_name = data["data"]["printName"]
+    customer = data["data"]["customer"]
+    print_cost = data["data"]["printCost"]
+    payment = data["data"]["payment"]
+    image = data["data"]["image"]
+    printed = data["data"]["printed"]
+    accepted = data["data"]["accepted"]
+    if accepted == "no":
         accepted = 0
-    elif accepted == 'colin':
+    elif accepted == "colin":
         accepted = 1
-    elif accepted == 'kavi':
+    elif accepted == "kavi":
         accepted = 2
-    paid = data['data']['paid']
-    delivered = data['data']['delivered']
+    paid = data["data"]["paid"]
+    delivered = data["data"]["delivered"]
     # Execute the query
     mycursor.execute(
         """
         INSERT INTO Prints (Seller, PrintName, Customer, PrintCost, Payment, Image, Printed, Accepted, Paid, Delivered)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-        """, 
-        (seller, print_name, customer, print_cost, payment, image, printed, accepted, paid, delivered)
+        """,
+        (
+            seller,
+            print_name,
+            customer,
+            print_cost,
+            payment,
+            image,
+            printed,
+            accepted,
+            paid,
+            delivered,
+        ),
     )
-    mydb.commit()  
-    return "<body style='background-color: lime;'><center><h1>Success</h1></center></body>"
+    mydb.commit()
+    return (
+        "<body style='background-color: lime;'><center><h1>Success</h1></center></body>"
+    )
+
+
 # Helper function to decode base64url
 # def base64url_decode(base64url_str):
 #     base64_str = base64url_str.replace('-', '+').replace('_', '/')

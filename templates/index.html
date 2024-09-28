@@ -9,14 +9,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="/static/index.css">
+    <link rel="stylesheet" href="static/index.css">
 </head>
 
 <body>
-    <script type="module" src="/static/x-frame-bypass.js"></script>
-    <script src="/static/index.js"></script>
-    {% if user %}
-    <script>document.body.classList.toggle('admin');</script>
+    <script type="module" src="static/x-frame-bypass.js"></script>
+    <script src="static/index.js"></script> {% if user %}
+    <script>
+        document.body.classList.toggle('admin');
+    </script>
     <nav class="navbar bg-dark keep" data-bs-theme="dark">
         <a class="navbar-brand keep" href="#">
             <div class="navbarT keep">
@@ -27,17 +28,12 @@
             user
             }}</a>
         <a href='/admin/logout' class="btn btn-outline-light keep" style="margin-right: 1%">Logout</a>
-
-    </nav>
-    {% else %}
-
-    <nav class="navbar bg-dark keep" data-bs-theme="dark">
+    </nav> {% else %} <nav class="navbar bg-dark keep" data-bs-theme="dark">
         <a class="navbar-brand keep" href="#">
             <div class="navbarT keep">
                 <h2 onclick="document.body.classList.toggle('gold');" class="keep">Printed</h2>
             </div>
         </a>
-
         <button class="btn btn-outline-light ms-auto keep" style="margin-right: 1%;" data-bs-toggle="modal"
             data-bs-target="#loginModal">Admin Login</button>
     </nav>
@@ -49,7 +45,7 @@
                     <button type="button" class="btn-close keep" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body keep">
-                    <form action="/admin/verify" class="keep" method="post">
+                    <form action="admin/verify" class="keep" method="post">
                         <div class="mb-3 keep">
                             <label for="accessCode" class="form-label keep">Secure Access Code</label>
                             <input type='text' class="form-control keep" id="accessCode" name="accessCode"
@@ -57,7 +53,6 @@
                             <div id="accessCodeHelp" class="form-text keep">You can get this code via the app.</div>
                         </div>
                         <button type="submit" class="btn btn-success keep">Login</button>
-
                     </form>
                 </div>
                 <div class="modal-footer keep">
@@ -66,16 +61,12 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    {% endif %}
+    </div> {% endif %}
     <script>
         function classParent(e, name) {
             if (e.parentElement)
-                if (e.parentElement.classList.contains(name))
-                    return e.parentElement;
-                else
-                    return classParent(e.parentElement, name)
+                if (e.parentElement.classList.contains(name)) return e.parentElement;
+                else return classParent(e.parentElement, name)
         }
         // Function to make all elements fall and rotate out
         // Function to make all elements (except exceptions) fall and rotate out
@@ -83,11 +74,9 @@
             const elements = document.querySelectorAll('*'); // Select all elements
             const windowWidth = window.innerWidth;
             const windowHeight = window.innerHeight;
-
             // List of exceptions by tag name and class
             const tagExceptions = ['BODY', 'HTML', "NAV", "LINK", "SCRIPT", "HEAD", "CENTER"]; // Example: don't transition body or html
             const classExceptions = ['accent-lines', 'keep', 'overlay']; // Example: exclude elements with these classes
-
             elements.forEach((element, index) => {
                 const tagName = element.tagName;
                 const classList = Array.from(element.classList);
@@ -98,15 +87,12 @@
                 if (tagExceptions.includes(tagName) || classList.some(cls => classExceptions.includes(cls))) {
                     return; // Skip this element
                 }
-
                 // Set initial styles for transition
                 element.style.transition = 'opacity 1s ease-in-out'; // Fade-out transition
                 element.style.opacity = '1'; // Ensure elements start fully visible
-
                 // Trigger the fade-out effect
                 setTimeout(() => {
                     element.style.opacity = '0'; // Fade to transparent
-
                     // Remove the element after the fade-out transition ends
                     setTimeout(() => {
                         element.remove();
@@ -130,8 +116,6 @@
                     if (tagExceptions.includes(tagName) || classList.some(cls => classExceptions.includes(cls))) {
                         return; // Skip this element
                     } else {
-
-
                         element.style.opacity = '0';
                         setTimeout(() => {
                             element.remove();
@@ -148,6 +132,7 @@
             }, 1000); // Adjust this timeout to match the duration of the previous transition
             // Optionally, clear the elements after transition is done
         }
+
         function byebye() {
             var overlay = document.getElementsByClassName('overlay');
             overlay = overlay[0]
@@ -158,12 +143,8 @@
                 location.href = "/"
             }, 2000); // Adjust this timeout to match the duration of the previous transition
         }
-
     </script>
-
-
     <canvas id="particleCanvas"></canvas>
-
     <div class="accent-lines">
         <div>
             <div></div>
@@ -200,8 +181,7 @@
             <span></span>
             <span></span>
             <span></span>
-            <span></span>
-            Create Order</span>
+            <span></span>Create Order
         </a>
     </center>
     <br>
@@ -214,7 +194,6 @@
         <h3 class="title">Smooth. Sleek. Strong. Premium.</h3>
         <p class="subp">Only made with the best filament. From the material to the finish, everything is only made with
             the best quality.</p>
-        
         <br>
         <br>
         <br>
@@ -229,65 +208,64 @@
         <br>
         <br>
         <br>
-    <center data-bs-theme="dark">
-    <div class="row">
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="https://img.stablecog.com/insecure/1536w/aHR0cHM6Ly9iLnN0YWJsZWNvZy5jb20vY2ZhNmQ2YWItYjQ4MS00YmIwLTlkYjAtNzgwMzdlZDdhZTZmLmpwZWc.webp"
-                    class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Colin Heslin</h5>
-                    <p class="card-text fs-6">Website Design & Functions<br>3D Prints<br><a
-                            href="mailto:colin.heslin@irvingtonschools.org">Email me</a> if you have any general questions. Customers may ask to communicate via phone number if they wish.</p>
+        <center data-bs-theme="dark">
+            <div class="row">
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <img src="https://img.stablecog.com/insecure/1536w/aHR0cHM6Ly9iLnN0YWJsZWNvZy5jb20vY2ZhNmQ2YWItYjQ4MS00YmIwLTlkYjAtNzgwMzdlZDdhZTZmLmpwZWc.webp"
+                            class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Colin Heslin</h5>
+                            <p class="card-text fs-6">Website Design & Functions <br>3D Prints <br>
+                                <a href="mailto:colin.heslin@irvingtonschools.org">Email me</a> if you have any general
+                                questions. Customers may ask to communicate via phone number if they wish.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <img src="https://www.greatcanadiantrails.com/croppedImages/North-America/Canada/Banff-National-Park-2763333-1600px.jpg"
+                            class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Kavi Manchanda</h5>
+                            <p class="card-text fs-6">Administrator <br>3D Prints <br>
+                                <a href="mailto:kavi.manchanda@irvingtonschools.org">Email me</a> if you have any
+                                specific printing questions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <img src="https://cdn.theatlantic.com/thumbor/zPjLr2iJmQmXa9fHPuP6w_ycz-c=/1500x998/media/img/photo/2016/06/earth-from-above-expedition-47-aboa/e01_ISS047E133215/original.jpg"
+                            class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Keane Nadler</h5>
+                            <p class="card-text fs-6">Print Addons <br>Custom 3D Modeler <br>
+                                <a href="mailto:keane.nadler@irvingtonschools.org">Email me</a> if you have any
+                                questions related to custom modeling.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <img src="https://www.greatbeanbags.com/media/amasty/blog/Gaming_room_setup_with_purple_lights.jpg"
+                            class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Matthew Berger</h5>
+                            <p class="card-text fs-6">Salesman <br>yep that's it. </p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="https://www.greatcanadiantrails.com/croppedImages/North-America/Canada/Banff-National-Park-2763333-1600px.jpg"
-                    class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Kavi Manchanda</h5>
-                    <p class="card-text fs-6">Administrator<br>3D Prints<br><a
-                            href="mailto:kavi.manchanda@irvingtonschools.org">Email me</a> if you have any specific
-                        printing
-                        questions.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="https://cdn.theatlantic.com/thumbor/zPjLr2iJmQmXa9fHPuP6w_ycz-c=/1500x998/media/img/photo/2016/06/earth-from-above-expedition-47-aboa/e01_ISS047E133215/original.jpg"
-                    class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Keane Nadler</h5>
-                    <p class="card-text fs-6">Print Addons<br>Custom 3D Modeler<br><a
-                            href="mailto:keane.nadler@irvingtonschools.org">Email me</a> if you have any questions
-                        related
-                        to
-                        custom modeling.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="card" style="width: 18rem;">
-                <img src="https://www.greatbeanbags.com/media/amasty/blog/Gaming_room_setup_with_purple_lights.jpg"
-                    class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Matthew Berger</h5>
-                    <p class="card-text fs-6">Salesman<br>yep that's it.</p>
-                </div>
-            </div>
-        </div>
-        </div>
-    </center>
-</div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
-        <!-- <script>
+        </center>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <!-- <script>
         // Convert Base64 URL to Uint8Array
 function base64urlDecode(base64url) {
     base64url = base64url.replace(/-/g, '+').replace(/_/g, '/');
@@ -422,31 +400,29 @@ function bufferToBase64url(buffer) {
                 console.error('Error during login:', error);
             }
         }
-        </script>
-    
-    <button class="" onclick="adminRegister()"></button> -->
-
-
-        <div class="overlay" data-bs-theme="dark">
+        </script><button class="" onclick="adminRegister()"></button> -->
+    <div class="overlay" data-bs-theme="dark">
+        <form method='post' action='/order/submit'>
             <div class="card text-center" style="margin-left: 3%; margin-right: 3%;">
                 <div class="card-header ">
-                    <h4 class="card-title">Order Menu</h5>
+                    <h4 class="card-title">Order Menu</h4>
                 </div>
                 <div class="card-body --bs-secondary-color">
-                    <form method='post' action='/order/submit'>
                     <div style="margin-left: 3%; margin-right: 3%;">
                         <label for="basic-url" class="form-label">Contact Information</label>
                         <div class="row">
                             <div class="col">
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control .bg-secondary.bg-gradient"
-                                        placeholder="Full Name" name='fullName' aria-label="Username" required aria-describedby="basic-addon1">
+                                        placeholder="Full Name" name='fullName' aria-label="Username" required
+                                        aria-describedby="basic-addon1">
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control .bg-secondary.bg-gradient"
-                                        placeholder="Email" name='email' aria-label="Email Address" required aria-describedby="basic-addon2">
+                                        placeholder="Email" name='email' aria-label="Email Address" required
+                                        aria-describedby="basic-addon2">
                                     <span class="input-group-text" id="basic-addon2">@irvingtonschools.org</span>
                                 </div>
                             </div>
@@ -456,7 +432,6 @@ function bufferToBase64url(buffer) {
                                     <input type="tel" class="form-control .bg-secondary.bg-gradient"
                                         placeholder="(123) 456 - 7890" name='phoneNumber' aria-label="Phone Number"
                                         aria-describedby="basic-addon2">
-
                                 </div>
                             </div>
                         </div>
@@ -475,109 +450,152 @@ function bufferToBase64url(buffer) {
                                             <option value="yes">Yes</option>
                                         </select>
                                     </div>
+
                                     <div id="customModelQuestions3" class="collapse">
                                         <div class="mb-3">
-                                            <label for="additionalNotes" class="form-label">Additional Notes</label>
-                                            <textarea class="form-control .bg-secondary.bg-gradient"
-                                                id="additionalNotes" rows="3"
-                                                placeholder="Make sure part A and part B are printed separately..."></textarea>
+                                            <label for="modelImage" class="form-label">Link of image to refer to</label>
+                                            <input type="url" class="form-control .bg-secondary.bg-gradient"
+                                                id="modelImage" name="modelImage"
+                                                placeholder="https://fbi.cults3d.com/uploads/collection/shot_en/154/benchy_boat_slide.jpg">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col">
+                                    <div id="customModelQuestions2" class="collapse">
+                                        <label for="modelDetails" class="form-label">Find a 3D model online</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="basic-addon3">
+                                                <a href='https://www.thingiverse.com/?page=1&order_print=0&sort=popular&posted_after=now-30d'
+                                                    target="_blank">https://thingiverse.com/thing:</a>
+                                            </span>
+                                            <input type="number" class="form-control .bg-secondary.bg-gradient"
+                                                id="basic-url" required aria-describedby="basic-addon3 basic-addon4"
+                                                placeholder="6749943" name="thingiverseUrl">
+                                        </div>
+                                        <div class="form-text" id="basic-addon4">Remember to copy ONLY the numbers right
+                                            after the colon : at the end of the link.</div>
+                                    </div>
                                     <div id="customModelQuestions" class="collapse">
                                         <div class="mb-3">
                                             <label for="modelDetails" class="form-label">Describe the custom model you'd
                                                 like</label>
                                             <textarea class="form-control .bg-secondary.bg-gradient" id="modelDetails"
-                                                rows="3" placeholder="Enter your model description"></textarea>
+                                                rows="1" placeholder="Enter your model description" name="modelDetails"></textarea>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="modelBudget" class="form-label">Size of Model</label>
+                                            <label for="modelSize" class="form-label">Size of Model</label>
                                             <input type="text" class="form-control .bg-secondary.bg-gradient"
-                                                id="modelBudget" placeholder="3in Wide 4in Length 6in Tall">
+                                                id="modelSize" name="modelSize" placeholder="3in Wide 4in Length 6in Tall">
                                         </div>
-                                        <div class="mb-3"></div>
-                                            <label for="modelImage" class="form-label">Image to refer to</label>
-                                            <input type="file" class="form-control .bg-secondary.bg-gradient"
-                                                id="modelImage">
-                                        </div>
+
                                     </div>
-                                    <div id="customModelQuestions2" class="collapse">
-                                        <label for="modelDetails" class="form-label">Find a 3D model online</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text" id="basic-addon3"><a
-                                                    href='https://thingiverse.com'>https://thingiverse.com/thing:</a></span>
-                                            <input type="text" class="form-control .bg-secondary.bg-gradient"
-                                                id="basic-url" aria-describedby="basic-addon3 basic-addon4"
-                                                placeholder="6749943">
-                                        </div>
-                                        <div class="form-text" id="basic-addon4">Remember to copy ONLY the numbers right
-                                            after
-                                            the
-                                            colon
-                                            : at the end of the link.</div>
+
+                                </div>
+                                <div id="customModelQuestions4" class="collapse">
+                                    <div class="mb-3">
+                                        <label for="additionalNotes" class="form-label">Additional Notes</label>
+                                        <textarea class="form-control .bg-secondary.bg-gradient" name="additionalNotes" id="additionalNotes"
+                                            rows="3"
+                                            placeholder="Make sure part A and part B are printed separately..."></textarea>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">$</span>
-                            <input type="text" class="form-control .bg-secondary.bg-gradient" id='expectedAmount'
-                                aria-label="Amount (to the nearest dollar)" placeholder="25">
-                            <span class="input-group-text">.00</span>
-                        </div>
-                        <div class="form-text" id="expectedAmount">We will work to make the print match your budget by
-                            adjusting
-                            size, material, and quality. If your price is too high even after adjustments, we will let
-                            you
-                            know.
-                        </div>
-
-
                     </div>
-                </form>
+                    <hr />
+                    <br>
+                    <label for="basic-url" class="form-label">Pricing</label>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="refer" class="form-label">Name of Referrer (Leave blank if N/A)</label>
+                                <select class="form-select .bg-secondary.bg-gradient" id="refer"
+                                    aria-label="Custom model addon" name='Referrer'>
+                                    <option value="None" selected>N/A</option>
+                                    <option value="Matthew">Matthew Berger</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="expectedAmount" class="form-label">Budget</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">$</span>
+                                <input type="text" class="form-control .bg-secondary.bg-gradient" id='expectedAmount'
+                                    aria-label="Amount (to the nearest dollar)" placeholder="25" name='budget' required>
+                                <span class="input-group-text">.00</span>
+                            </div>
+                            <div class="form-text" id="expectedAmountText">We will work to make the print match your
+                                budget
+                                by
+                                adjusting size, material, and quality. We will let you know if you're overpaying even
+                                after
+                                we
+                                use our highest quality materials.</div>
+                        </div>
+                    </div>
+
                 </div>
+
                 <div class="card-footer text-body-secondary">
                     <button type="button" class="btn btn-secondary" onclick="byebye()">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="submitOrder()">Submit Order</button>
+                    <button type="submit" class="btn btn-primary">Submit Order</button>
                 </div>
             </div>
-        </div>
-        <script>
-            const customModelQuestions = document.getElementById('customModelQuestions');
-            const customModelQuestions2 = document.getElementById('customModelQuestions2');
-            const customModelQuestions3 = document.getElementById('customModelQuestions3');
-            new bootstrap.Collapse(customModelQuestions2, {
-                show: true
-            });
-            document.getElementById('customModelAddon').addEventListener('change', function () {
-                const selectedValue = this.value;
+        </form>
+    </div>
+    <script>
+        document.getElementById('customModelAddon').addEventListener('change', function () {
+            const isYes = this.value === 'yes';
 
-                if (selectedValue === 'yes') {
-                    new bootstrap.Collapse(customModelQuestions, {
-                        show: true
-                    });
-                    new bootstrap.Collapse(customModelQuestions2, {
-                        hide: true
-                    });
-                    new bootstrap.Collapse(customModelQuestions3, {
-                        hide: true
-                    });
-                } else {
-                    new bootstrap.Collapse(customModelQuestions, {
-                        hide: true
-                    });
-                    new bootstrap.Collapse(customModelQuestions2, {
-                        show: true
-                    });
-                    new bootstrap.Collapse(customModelQuestions3, {
-                        show: true
-                    });
-                }
-            });
-        </script>
+            document.getElementById('modelSize').required = isYes;   // Required if YES
+            document.getElementById('modelDetails').required = isYes;   // Required if YES
+            document.getElementById('modelImage').required = isYes;   // Required if YES
+            document.getElementById('customModelAddon').required = isYes;   // Required if YES
+            document.getElementById('basic-url').required = !isYes;  // Required if NO
+        });
+
+        // Optional: Initial load to ensure correct state when the page loads
+        document.getElementById('customModelAddon').dispatchEvent(new Event('change'));
+    </script>
+    <script>
+        const customModelQuestions = document.getElementById('customModelQuestions');
+        const customModelQuestions2 = document.getElementById('customModelQuestions2');
+        const customModelQuestions3 = document.getElementById('customModelQuestions3');
+        const customModelQuestions4 = document.getElementById('customModelQuestions4');
+        new bootstrap.Collapse(customModelQuestions2, {
+            show: true
+        });
+        document.getElementById('customModelAddon').addEventListener('change', function () {
+            const selectedValue = this.value;
+            if (selectedValue === 'yes') {
+                new bootstrap.Collapse(customModelQuestions, {
+                    show: true
+                });
+                new bootstrap.Collapse(customModelQuestions2, {
+                    hide: true
+                });
+                new bootstrap.Collapse(customModelQuestions3, {
+                    hide: true
+                });
+                new bootstrap.Collapse(customModelQuestions4, {
+                    hide: true
+                });
+            } else {
+                new bootstrap.Collapse(customModelQuestions, {
+                    hide: true
+                });
+                new bootstrap.Collapse(customModelQuestions2, {
+                    show: true
+                });
+                new bootstrap.Collapse(customModelQuestions3, {
+                    show: true
+                });
+                new bootstrap.Collapse(customModelQuestions4, {
+                    show: true
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
