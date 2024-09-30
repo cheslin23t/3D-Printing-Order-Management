@@ -681,7 +681,7 @@ body.admin .header > div.mid-spot {
 }
 body.admin .header h2 ,
 body.admin p,
-body.admin > * > * :not(.contact-btn, div, span, input, select, textarea, label, .keep, a) {
+body.admin > * > * :not(.contact-btn, div, span, input, select, textarea, label, .keep, a, .card, .card-img-top, .card-title, .card-text) {
     filter: invert(1) brightness(4.7) hue-rotate(50deg);
 }
 body.admin .header h2 a{
@@ -703,7 +703,7 @@ body.admin .mountains > div {
 
 body.admin .content-section,
 body.admin .content-section ::before,
-body.admin .content-section ::after{
+body.admin .content-section ::after :not(a, .card, .card-img-top, .card-title, .card-text) {
     filter: invert(1) brightness(4.4) opacity(1) hue-rotate(50deg);
 }
 /* Reverse 'colorize' animation */

@@ -25,28 +25,29 @@ def send_report(path):
     return send_from_directory('static', path)
 app.config['TRAP_HTTP_EXCEPTIONS']=True
 
-# @app.errorhandler(Exception)
-# def handle_error(e):
-#     try:
-#         # Get the stack trace if it's a 500 error
-#         if e == 500:
-#             stack_trace = traceback.format_exc()
-#         else:
-#             stack_trace = None
-#         # Flask has built-in descriptions for HTTP status codes
-#         error_description = f"{e} - {request.url_rule}" if e == 404 else "Internal Server Error"
+@app.errorhandler(Exception)
+def handle_error(e):
+    try:
+        # Get the stack trace if it's a 500 error
+        if e == 500:
+            stack_trace = traceback.format_exc()
+        else:
+            stack_trace = None
+        # Flask has built-in descriptions for HTTP status codes
+        error_description = f"{e} - {request.url_rule}" if e == 404 else "Internal Server Error"
 
-#         # What happened? Provide more info on the request and the error
-#         error_msg = f"Error occurred on: {request.path}"
+        # What happened? Provide more info on the request and the error
+        error_msg = f"Error occurred on: {request.path}"
         
-#         # If it's 500, include the stack trace in the message
-#         if stack_trace:
-#             error_msg += f"\n\nStack Trace:\n{stack_trace}"
+        # If it's 500, include the stack trace in the message
+        if stack_trace:
+            error_msg += f"\n\nStack Trace:\n{stack_trace}"
 
-#         return render_template('error.html', error=e, error_description=error_description, error_msg=error_msg)
-#     except Exception as ex:
-#         # Fallback if something in the error handler breaks
-#         return f"Error code: 500. Additional issue: {str(ex)}"
+        return render_template('error.html', error=e, error_description=error_description, error_msg=error_msg)
+    except Exception as ex:
+        # Fallback if something in the error handler breaks
+        return f"Error code: 500. Additional issue: {str(ex)}"
+
 @app.route('/favicon.ico')
 def flask_logo():
     return current_app.send_static_file('favicon.ico')

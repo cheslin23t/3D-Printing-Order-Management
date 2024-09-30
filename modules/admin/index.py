@@ -11,7 +11,7 @@ import base64
 import binascii
 import uuid
 from ..utils.database import mydb
-
+from ..utils.decorators import logged_in, admin, printer, addon, referrer, authorizedUsers
 login_keys = []
 app = Blueprint("admin", __name__, template_folder="../../templates")
 mycursor = mydb.cursor(dictionary=True)
@@ -25,8 +25,6 @@ def generate_secure_code():
 
 @app.route("/admin/verify", methods=["GET", "POST"])
 def verify_registration():
-    if "admin_logged_in" in session:
-        return redirect("/admin")
     if request.method == "POST":
         success = False
         for key in login_keys:
@@ -35,10 +33,11 @@ def verify_registration():
                 session["user"] = key["user"]
                 return redirect("/admin")
         return redirect("/")
-    return "hey ;)"
+    return render_template("forbidden.html")
 
 
 @app.route("/admin/logout")
+@logged_in
 def logout():
     session.pop("admin_logged_in", None)
     session.pop("user", None)
@@ -78,9 +77,23 @@ def gen_code():
 
 
 @app.route("/admin")
+@logged_in
 def admin():
-    if "admin_logged_in" not in session:
-        return redirect("/admin/verify")
+    rank = authorizedUsers.get(session.get("user"))
+    if rank is not None:
+        if rank <= 2:
+            return redirect("/admin/prints")
+        elif rank == 3:
+            return redirect("/admin/addons")
+        elif rank == 4:
+            return redirect("/admin/referrers")
+        else:
+            return "tell me to add a page for you"
+
+@app.route("/admin/prints")
+@logged_in
+@printer
+def getPrints():
     # Fetch data from the database
     mycursor.execute("SELECT * FROM Prints")
     prints_data = mycursor.fetchall()
