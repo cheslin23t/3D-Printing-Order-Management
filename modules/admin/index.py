@@ -27,14 +27,19 @@ def generate_secure_code():
 def verify_registration():
     if request.method == "POST":
         success = False
+        print("Verifying registration: %s" % request.form)
         for key in login_keys:
             if key["code"] == request.form.get("accessCode"):
+                list.remove(login_keys, key)
                 session["admin_logged_in"] = True
+                print('e')
                 session["user"] = key["user"]
+                print('User logged in as ' + session.get('user'))
                 return redirect("/admin")
-        return redirect("/")
+        print('User login rejected: Invalid Code.')
+        return render_template("forbidden.html")
+    print('User login rejected: Not POST Route.')
     return render_template("forbidden.html")
-
 
 @app.route("/admin/logout")
 @logged_in
@@ -68,11 +73,14 @@ def gen_code():
 
     if has_expected_format(data) is False:
         abort(404)
+        print('Rejected generate_code due to invalid format.')
     if data["auth"] != os.getenv("admin_auth"):
         abort(404)
+        print('Rejected generate_code due to incorrect authentication.')
     v_code = generate_secure_code()
     newEntry = {"user": data["user"], "code": v_code}
     login_keys.append(newEntry)
+    print('Generated new code for user: ' + data["user"])
     return v_code
 
 
@@ -100,10 +108,38 @@ def getPrints():
     # Pass the fetched data to the template
     return render_template("prints.html", prints=prints_data)
 
-
+@app.route("/admin/submissions")
+@logged_in
+@printer
+def getSubmissions():
+    # Fetch data from the database
+    mycursor.execute("SELECT * FROM Submissions")
+    prints_data = mycursor.fetchall()
+    # Pass the fetched data to the template
+    return render_template("submissions.html", prints=prints_data)
+@app.route("/admin/addons")
+@logged_in
+@printer
+def getAddons():
+    # Fetch data from the database
+    #mycursor.execute("SELECT * FROM Prints")
+    #prints_data = mycursor.fetchall()
+    prints_data = []
+    # Pass the fetched data to the template
+    return render_template("extensions.html", prints=prints_data)
+@app.route("/admin/referrers")
+@logged_in
+@printer
+def getReferrers():
+    # Fetch data from the database
+    #mycursor.execute("SELECT * FROM Prints")
+    #prints_data = mycursor.fetchall()
+    prints_data = []
+    # Pass the fetched data to the template
+    return render_template("sales.html", prints=prints_data)
 @app.route("/admin/send", methods=["POST"])
 def sendRoute():
-    print(request.get_json())
+    #print(request.get_json())
     data = request.get_json()
 
     def has_expected_format(d):

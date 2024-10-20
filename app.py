@@ -1,7 +1,10 @@
+from __future__ import print_function
 from flask import Flask, render_template, send_from_directory, session, current_app, request
 from dotenv import load_dotenv
 import traceback
 import os
+from flask_compress import Compress
+import waitress
 #import ngrok
 load_dotenv()
 app = Flask(__name__)
@@ -11,14 +14,87 @@ from flask_session import Session
 app.config['SECRET_KEY'] = os.getenv('flask_session')
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
+Compress(app)
 from importlib import import_module
 from datetime import timedelta
 #listener = ngrok.forward(addr="localhost:443", authtoken_from_env=True, domain="repeatedly-organic-ghost.ngrok-free.app")
 #print(f"Ingress established at {listener.url()}")
+class PrintColored:
+    DEFAULT = '\033[0m'
+    # Styles
+    BOLD = '\033[1m'
+    ITALIC = '\033[3m'
+    UNDERLINE = '\033[4m'
+    UNDERLINE_THICK = '\033[21m'
+    HIGHLIGHTED = '\033[7m'
+    HIGHLIGHTED_BLACK = '\033[40m'
+    HIGHLIGHTED_RED = '\033[41m'
+    HIGHLIGHTED_GREEN = '\033[42m'
+    HIGHLIGHTED_YELLOW = '\033[43m'
+    HIGHLIGHTED_BLUE = '\033[44m'
+    HIGHLIGHTED_PURPLE = '\033[45m'
+    HIGHLIGHTED_CYAN = '\033[46m'
+    HIGHLIGHTED_GREY = '\033[47m'
+
+    HIGHLIGHTED_GREY_LIGHT = '\033[100m'
+    HIGHLIGHTED_RED_LIGHT = '\033[101m'
+    HIGHLIGHTED_GREEN_LIGHT = '\033[102m'
+    HIGHLIGHTED_YELLOW_LIGHT = '\033[103m'
+    HIGHLIGHTED_BLUE_LIGHT = '\033[104m'
+    HIGHLIGHTED_PURPLE_LIGHT = '\033[105m'
+    HIGHLIGHTED_CYAN_LIGHT = '\033[106m'
+    HIGHLIGHTED_WHITE_LIGHT = '\033[107m'
+
+    STRIKE_THROUGH = '\033[9m'
+    MARGIN_1 = '\033[51m'
+    MARGIN_2 = '\033[52m' # seems equal to MARGIN_1
+    # colors
+    BLACK = '\033[30m'
+    RED_DARK = '\033[31m'
+    GREEN_DARK = '\033[32m'
+    YELLOW_DARK = '\033[33m'
+    BLUE_DARK = '\033[34m'
+    PURPLE_DARK = '\033[35m'
+    CYAN_DARK = '\033[36m'
+    GREY_DARK = '\033[37m'
+
+    BLACK_LIGHT = '\033[90m'
+    RED = '\033[91m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    BLUE = '\033[94m'
+    PURPLE = '\033[95m'
+    CYAN = '\033[96m'
+    WHITE = '\033[97m'
+
+    def __init__(self):
+        self.print_original = print # old value to the original print function
+        self.current_color = self.DEFAULT
+
+    def __call__(self,
+                 *values: object, sep: str | None = None,
+                 end: str | None = None,
+                 file: str | None = None,
+                 flush: bool = False,
+                 color: str|None = None,
+                 default_color: str|None = None,
+    ):
+        if default_color:
+            self.current_color = default_color
+
+        default = self.current_color
+        if color:
+            values = (color, *values, default)  # wrap the content within a selected color an a default
+        else:
+            values = (*values, default)  # wrap the content within a selected color an a default
+        self.print_original(*values, end=end, file=file, flush=flush)
+
+print = PrintColored()
 for route in activeRoutes:
-    print(route)
+    print("Loading module {module}".format(module=route), end='\r', color=print.YELLOW)
     m = import_module(f'modules.{route}.index')
     app.register_blueprint(m.app)
+    print("Module {module} loaded successfully.".format(module=route), color=print.GREEN)
 
 @app.route('/static/<path:path>')
 def send_report(path):
@@ -28,6 +104,9 @@ app.config['TRAP_HTTP_EXCEPTIONS']=True
 @app.errorhandler(Exception)
 def handle_error(e):
     try:
+        print(f"Error on {request.path}", color=print.YELLOW)
+        print(e, color=print.RED)
+        
         # Get the stack trace if it's a 500 error
         if e == 500:
             stack_trace = traceback.format_exc()
@@ -97,5 +176,6 @@ def pretty_date(time=False):
     if day_diff < 365:
         return str(day_diff // 30) + " months ago"
     return str(day_diff // 365) + " years ago"
-
-app.run(host='localhost', port=443)
+print("All routes loaded successfully.")
+print('Server Started.')
+waitress.serve(app, listen='localhost:443')
