@@ -17,7 +17,7 @@ body {
 .threedobj { display: block; }
 body.gold .header h2 ,
 body.gold p,
-body.gold > * > * :not(.contact-btn, div, span, input, select, textarea, label, .keep, a) {
+body.gold > * > * :not(.contact-btn, div, span, input, select, textarea, label, .keep, a, .badge) {
     filter: invert(1) brightness(4.7);
 }
 body.gold .header h2 a{
@@ -681,7 +681,7 @@ body.halloween .header > div.mid-spot {
 }
 body.halloween .header h2 ,
 body.halloween p,
-body.halloween > * > * :not(.contact-btn, div, span, input, select, textarea, label, .keep, a, .card, .card-img-top, .card-title, .card-text) {
+body.halloween > * > * :not(.contact-btn, div, span, input, select, textarea, label, .keep, a, .card, .card-img-top, .card-title, .card-text, .badge) {
     filter: invert(1) brightness(4.7) hue-rotate(50deg);
 }
 body.halloween .header h2 a{
@@ -703,7 +703,7 @@ body.halloween .mountains > div {
 
 body.halloween .content-section,
 body.halloween .content-section ::before,
-body.halloween .content-section ::after :not(a, .card, .card-img-top, .card-title, .card-text) {
+body.halloween .content-section ::after :not(a, .card, .card-img-top, .card-title, .card-text, .badge) {
     filter: invert(1) brightness(4.4) opacity(1) hue-rotate(0deg);
 }
 body.halloween .header > div.mid-spot:hover {
@@ -715,7 +715,7 @@ body.halloween .header > div.mid-spot {
 }
 body.halloween .header h2 ,
 body.halloween p,
-body.halloween > * > * :not(.contact-btn, div, span, input, select, textarea, label, .keep, a, .card, .card-img-top, .card-title, .card-text) {
+body.halloween > * > * :not(.contact-btn, div, span, input, select, textarea, label, .keep, a, .card, .card-img-top, .card-title, .card-text, .badge) {
     filter: invert(1) brightness(4.7) hue-rotate(-45deg);
 }
 body.halloween .header h2 a{
@@ -737,7 +737,7 @@ body.halloween .mountains > div {
 
 body.halloween .content-section,
 body.halloween .content-section ::before,
-body.halloween .content-section ::after :not(a, .card, .card-img-top, .card-title, .card-text) {
+body.halloween .content-section ::after :not(a, .card, .card-img-top, .card-title, .card-text, .badge) {
     filter: invert(1) brightness(4.4) opacity(1) hue-rotate(50deg);
 }
 /* Reverse 'colorize' animation */

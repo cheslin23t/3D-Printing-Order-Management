@@ -6,15 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>3D Prints</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/css/theme.bootstrap_4.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/css/theme.bootstrap_4.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-    <link rel="stylesheet" href=" 824744Ludens---1-Dark-mode-Index-Table-with-Search-Filters.css">
+    <link rel="stylesheet" href="/static/Ludens---1-Dark-mode-Index-Table-with-Search-Filters.css">
     <link rel="stylesheet" href="/static/Navbar-Right-Links-icons.css">
 </head>
 
 <body>
+    <!-- Modal Structure -->
+    <!-- Modal Structure -->
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messageModalLabel">Message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                {% if message %}
+                    {{ message|safe }}  <!-- Ensure to safely render the message -->
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- JavaScript to Trigger Modal -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Check if the modal body contains any message
+        var modalBody = document.getElementById('modalBody');
+        if (modalBody.textContent.trim() !== '') {
+            // Create a new Bootstrap modal instance
+            var messageModal = new bootstrap.Modal(document.getElementById('messageModal'));
+            // Show the modal
+            messageModal.show();
+        }
+    });
+</script>
+
+
     <nav class="navbar navbar-expand-md bg-body-secondary py-3">
-        <div class="container"><a class="navbar-brand d-flex align-items-center" href="/"><span class="bs-icon-sm bs-icon-rounded d-flex justify-content-center align-items-center me-2 bs-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-3d-cube-sphere" style="width: inherit;height: inherit;color: rgb(191,140,255);">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="/"><span
+                    class="bs-icon-sm bs-icon-rounded d-flex justify-content-center align-items-center me-2 bs-icon"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2"
+                        stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon icon-tabler icon-tabler-3d-cube-sphere"
+                        style="width: inherit;height: inherit;color: rgb(191,140,255);">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <path d="M6 17.6l-2 -1.1v-2.5"></path>
                         <path d="M4 10v-2.5l2 -1.1"></path>
@@ -28,7 +69,9 @@
                         <path d="M12 18.5l0 2.5"></path>
                         <path d="M12 12l-2 -1.12"></path>
                         <path d="M6 8.6l-2 -1.1"></path>
-                    </svg></span><span style="font-size: 21px;">Printed</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                    </svg></span><span style="font-size: 21px;">Printed</span></a><button data-bs-toggle="collapse"
+                class="navbar-toggler" data-bs-target="#navcol-2"><span class="visually-hidden">Toggle
+                    navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-2">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" href="/admin">Dashboard</a></li>
@@ -57,7 +100,7 @@
             <div class="card-header py-3" style="border-width: 0px;background: rgb(120, 126, 157);">
                 <div class="row table-topper align-items-center">
                     <div class="col-12 col-sm-5 col-md-6 text-start" style="margin: 0px;padding: 5px 15px;">
-                        <p class="m-0 fw-bold" style="color: rgb(255,255,255);">Prints</p>
+                        
                     </div>
                 </div>
             </div>
@@ -65,68 +108,150 @@
                 <div class="col-12">
                     <div class="table-responsive" style="border-top-style: none;background: #171921;">
                         <table class="table table-striped table tablesorter" id="ipi-table">
-                            <thead class="thead-dark" style="background: rgb(33,37,48);border-width: 0px;border-color: rgb(0,0,0);border-bottom-color: #21252F;">
-                                <tr style="border-style: none;border-color: rgba(255,255,255,0);background: #21252f;"></tr>
+                            <thead class="thead-dark"
+                                style="background: rgb(33,37,48);border-width: 0px;border-color: rgb(0,0,0);border-bottom-color: #21252F;">
+                                <tr style="border-style: none;border-color: rgba(255,255,255,0);background: #21252f;">
+                                    <th>ID</th>
+                                    <th>Date</th>
+                                    <th>Client</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Budget</th>
+                                    <th>Referrer</th>
+                                    <th>Custom Model</th>
+                                    <th>Additional Notes</th>
+                                    <th>Model Image</th>
+                                    <th>Model Size</th>
+                                    <th>Model Details</th>
+                                    <th>Thingiverse URL</th>
+                                    <th>Configure</th>
+                                </tr>
                             </thead>
                             <tbody class="text-center" style="border-top-width: 0px;">
+                                {% for print in prints %}
                                 <tr style="background: #262a38;">
+                                    <!-- ID -->
+                                    <td>{{ print['id'] }}</td>
+        
+                                    <!-- Date -->
+                                    <td>{{ print['date'] }}</td>
+        
+                                    <!-- Client -->
+                                    <td>{{ print['client'] }}</td>
+        
+                                    <!-- Email -->
+                                    <td>{{ print['email'] }}</td>
+        
+                                    <!-- Phone -->
+                                    <td>{{ print['phone'] }}</td>
+        
+                                    <!-- Budget -->
+                                    <td>${{ print['budget'] }}</td>
+        
+                                    <!-- Referrer -->
+                                    <td>{{ print['referrer'] }}</td>
+        
+                                    <!-- Custom Model -->
+                                    <td>{% if print['customModel'] == 1 %}Yes{% else %}No{% endif %}</td>
+        
+                                    <!-- Additional Notes -->
+                                    <td>{{ print['additionalNotes'] }}</td>
+        
+                                    <!-- Model Image Link -->
+                                    {% if print['modelImage'] == "No image provided." %}
                                     <td>
-                                        {% for print in prints %}
-<form action="/update_print/{{ print[0] }}" method="POST">
-    <button class="btn btn-success float-end" type="submit" style="padding: 6px 12px; margin: 0px; margin-right: 5px; margin-left: 7px;">Save</button>
-    
-    <input class="form-control" type="text" style="max-width: 164px;height: 36px;padding: 16px 12px;margin-bottom: -36px;margin-left: 7px;" 
-           name="printName" placeholder="Print Name" value="{{ print[2] }}">
-    <input class="form-control" type="text" style="max-width: 164px;height: 36px;padding: 16px 12px;margin-bottom: -36px;margin-left: 177px;" 
-           name="custName" placeholder="Customer's Name" value="{{ print[3] }}">
-    <input class="form-control" type="number" style="max-width: 116px;height: 36px;padding: 16px 12px;margin-bottom: -36px;margin-left: 347px;" 
-           name="printCost" placeholder="Print Cost" value="{{ print[4] }}">
-    <input class="form-control" type="text" style="max-width: 164px;height: 36px;padding: 16px 12px;margin-bottom: -36px;margin-left: 469px;" 
-           name="printLink" placeholder="3D Print File Link" value="{{ print[11] }}">
-    
-    <select class="form-select float-end" style="max-width: 150px;min-width: auto;margin-left: 6px;" name="Delivered">
-        <option value="false" {% if print[10] == 0 %}selected{% endif %}>Not Delivered</option>
-        <option value="true" {% if print[10] == 1 %}selected{% endif %}>Delivered</option>
-    </select>
-    
-    <select class="form-select float-end" style="max-width: 144px;min-width: auto;margin-left: 6px;" name="Paid">
-        <option value="false" {% if print[9] == 0 %}selected{% endif %}>Unpaid</option>
-        <option value="true" {% if print[9] == 1 %}selected{% endif %}>Paid</option>
-    </select>
-    
-    <select class="form-select float-end" style="max-width: 132px;min-width: auto;margin-left: 6px;" name="Printed">
-        <option value="false" {% if print[7] == 0 %}selected{% endif %}>Not Printed</option>
-        <option value="true" {% if print[7] == 1 %}selected{% endif %}>Printed</option>
-    </select>
-    
-    <select class="form-select float-end" style="max-width: 148px;min-width: auto;" name="Accepted">
-        <option value="0" {% if print[8] == 0 %}selected{% endif %}>Not Accepted</option>
-        <option value="1" {% if print[8] == 1 %}selected{% endif %}>Accepted by Colin</option>
-        <option value="2" {% if print[8] == 2 %}selected{% endif %}>Accepted by Kavi</option>
-    </select>
-    
-
-    <a class="float-end" href="{{ print[6] }}" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 262px; margin-top: 7px; padding-bottom: 0px; margin-right: 7px;" title="This can only be edited via the shortcut.">Add image in shortcut</a>
-</form>
-{% endfor %}
-
+                                        <p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 100px;">
+                                            No image.</p>
                                     </td>
+                                    {% else %}
+                                    <td>
+                                        <a href="{{ print['modelImage'] }}" target="_blank"
+                                            style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 100px;">{{
+                                            print['modelImage'] }}</a>
+                                    </td>
+                                    {% endif %}
+                                    <!-- Model Size -->
+                                    <td>{{ print['modelSize'] }}</td>
+        
+                                    <!-- Model Details -->
+                                    <td>{{ print['modelDetails'] }}</td>
+        
+                                    <!-- Thingiverse URL -->
+                                    <td>
+                                        <a href="https://thingiverse.com/thing:{{ print['thingiverseUrl'] }}" target="_blank"
+                                            style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 100px;">View
+                                            URL</a>
+                                    </td>
+        
+                                    <!-- Approval Button -->
+                                    <td>
+                                        <!-- Configure button to trigger the modal -->
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#configureModal{{ print['id'] }}">
+                                            Configure
+                                        </button>
+                                    
+                                        <!-- Bootstrap Modal -->
+                                        <div class="modal fade" id="configureModal{{ print['id'] }}" tabindex="-1" aria-labelledby="configureModalLabel{{ print['id'] }}" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="configureModalLabel{{ print['id'] }}">Configure Submission #{{ print['id'] }}</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="btn-group" role="group" aria-label="Button group">
+                                                        <form action="/admin/submissions/configure" method="POST">
+                                                            <input type="hidden" name="submission_id" value="{{ print['id'] }}">
+                                                            <input type="hidden" name="action" value="approve">
+                                                            <button class="btn btn-success me-2" type="submit">Approve</button>
+                                                        </form>
+                                                        <form action="/admin/submissions/configure" method="POST">
+                                                            <input type="hidden" name="submission_id" value="{{ print['id'] }}">
+                                                            <input type="hidden" name="action" value="deny">
+                                                            <button class="btn btn-danger me-2" type="submit">Deny</button>
+                                                        </form>
+                                                        <form action="/admin/submissions/configure" method="POST">
+                                                            <input type="hidden" name="submission_id" value="{{ print['id'] }}">
+                                                            <input type="hidden" name="action" value="addon">
+                                                            <button class="btn btn-primary me-2" type="submit">Send to Keane</button>
+                                                        </form>
+                                                        <form action="/admin/submissions/configure" method="POST">
+                                                            <input type="hidden" name="submission_id" value="{{ print['id'] }}">
+                                                            <input type="hidden" name="action" value="referrer">
+                                                            <button class="btn btn-secondary me-2" type="submit">Refer Matthew</button>
+                                                        </form>
+                                                    </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    
                                 </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
+        
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/static/bs-init.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/jquery.tablesorter.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/widgets/widget-filter.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/widgets/widget-storage.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/widgets/widget-filter.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/widgets/widget-storage.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="/static/Ludens---1-Dark-mode-Index-Table-with-Search-Filters-Ludens---1-Index-Table-with-Search--Sort-Filters-v20-1.js"></script>
-    <script src="/static/Ludens---1-Dark-mode-Index-Table-with-Search-Filters-Ludens---1-Index-Table-with-Search--Sort-Filters-v20.js"></script>
+    <script
+        src="/static/Ludens---1-Dark-mode-Index-Table-with-Search-Filters-Ludens---1-Index-Table-with-Search--Sort-Filters-v20-1.js"></script>
+    <script
+        src="/static/Ludens---1-Dark-mode-Index-Table-with-Search-Filters-Ludens---1-Index-Table-with-Search--Sort-Filters-v20.js"></script>
     <script src="/static/Ludens---1-Dark-mode-Index-Table-with-Search-Filters-main.js"></script>
 </body>
 

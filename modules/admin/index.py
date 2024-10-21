@@ -1,5 +1,5 @@
 # admin.py (Flask Blueprint)
-from flask import render_template, Blueprint, session, request, jsonify, abort, redirect
+from flask import render_template, Blueprint, session, request, jsonify, abort, redirect, flash
 from webauthn import (
     generate_registration_options,
     generate_authentication_options,
@@ -25,6 +25,8 @@ def generate_secure_code():
 
 @app.route("/admin/verify", methods=["GET", "POST"])
 def verify_registration():
+    if "admin_logged_in" in session:
+        return redirect("/admin")
     if request.method == "POST":
         success = False
         print("Verifying registration: %s" % request.form)
@@ -113,13 +115,49 @@ def getPrints():
 @printer
 def getSubmissions():
     # Fetch data from the database
-    mycursor.execute("SELECT * FROM Submissions")
+    mycursor.execute("SELECT * FROM Submissions WHERE Approved = 0 AND Denied = 0")
     prints_data = mycursor.fetchall()
+    print(prints_data)
     # Pass the fetched data to the template
     return render_template("submissions.html", prints=prints_data)
-@app.route("/admin/addons")
+@app.route('/admin/submissions/configure', methods=['POST'])
 @logged_in
 @printer
+def configureSubmission():
+    data = request.form
+    print(data)
+    submission_id = data['submission_id']
+    action = data['action']
+    if action == 'approve':
+        mycursor.execute("UPDATE Submissions SET Approved = 1 WHERE id = %s", (submission_id,))
+        mydb.commit()
+        mycursor.execute("SELECT * FROM Submissions WHERE Approved = 0 AND Denied = 0")
+        prints_data = mycursor.fetchall()
+        print(prints_data)
+        # Pass the fetched data to the template
+        return render_template("submissions.html", prints=prints_data, message="Submission Accepted.")
+    elif action == 'deny':
+        mycursor.execute("UPDATE Submissions SET Denied = 1 WHERE id = %s", (submission_id,))
+        mydb.commit()
+        mycursor.execute("SELECT * FROM Submissions WHERE Approved = 0 AND Denied = 0")
+        prints_data = mycursor.fetchall()
+        print(prints_data)
+        # Pass the fetched data to the template
+        return render_template("submissions.html", prints=prints_data, message="Submission Denied.")
+    elif action == 'addon':
+        pass
+    elif action == 'referrer':
+        pass
+    else:
+        return "Hey dont edit the html u goon"
+    # Fetch data from the database
+    #mycursor.execute("SELECT * FROM Prints")
+    #prints_data = mycursor.fetchall()
+    # Pass the fetched data to the template
+
+@app.route("/admin/addons")
+@logged_in
+@addon
 def getAddons():
     # Fetch data from the database
     #mycursor.execute("SELECT * FROM Prints")
@@ -129,7 +167,7 @@ def getAddons():
     return render_template("extensions.html", prints=prints_data)
 @app.route("/admin/referrers")
 @logged_in
-@printer
+@referrer
 def getReferrers():
     # Fetch data from the database
     #mycursor.execute("SELECT * FROM Prints")
