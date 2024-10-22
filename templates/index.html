@@ -541,6 +541,18 @@ function bufferToBase64url(buffer) {
                                 we
                                 use our highest quality materials.</div>
                         </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="refer" class="form-label">Payment Method</label>
+                                <select class="form-select .bg-secondary.bg-gradient" id="refer"
+                                    aria-label="Custom model addon" name='Referrer'>
+                                    <option value="Venmo" selected>Venmo</option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="Credit / Debit Card">Credit / Debit Card (Increased Fees)</option>
+                                </select>
+                            </div>
+                            <div class="form-text" id="expectedAmountText">You will not be paying now. We just need this information on record to account for certain costs such as transaction fees. Venmo and Cash are the best options to avoid these.<br>A maximum of $1.50 worth of coins are allowed for the cash option. The rest must be in dollar bills.</div>
+                        </div>
                     </div>
 
                 </div>

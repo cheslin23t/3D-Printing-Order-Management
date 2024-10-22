@@ -131,6 +131,27 @@ def configureSubmission():
     if action == 'approve':
         mycursor.execute("UPDATE Submissions SET Approved = 1 WHERE id = %s", (submission_id,))
         mydb.commit()
+        mycursor.execute('SELECT * FROM Submissions WHERE id = %s', (submission_id,))
+        submission = mycursor.fetchone()
+    #     mycursor.execute(
+    #     """
+    #     INSERT INTO Prints (PrintId, Seller, PrintName, Customer, PrintCost, Payment, Image, Printed, Accepted, Paid, Delivered)
+    #     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    #     """,
+    #     (
+    #         submission_id
+    #         session.get("user"),
+    #         ,
+    #         submission['email'],
+    #         submission['budget'],
+    #         payment,
+    #         image,
+    #         printed,
+    #         accepted,
+    #         paid,
+    #         delivered,
+    #     ),
+    # )
         mycursor.execute("SELECT * FROM Submissions WHERE Approved = 0 AND Denied = 0")
         prints_data = mycursor.fetchall()
         print(prints_data)
