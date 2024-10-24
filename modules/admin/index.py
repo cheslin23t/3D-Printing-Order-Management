@@ -107,6 +107,7 @@ def getPrints():
     # Fetch data from the database
     mycursor.execute("SELECT * FROM Prints")
     prints_data = mycursor.fetchall()
+    print(prints_data)
     # Pass the fetched data to the template
     return render_template("prints.html", prints=prints_data)
 
@@ -117,7 +118,7 @@ def getSubmissions():
     # Fetch data from the database
     mycursor.execute("SELECT * FROM Submissions WHERE Approved = 0 AND Denied = 0")
     prints_data = mycursor.fetchall()
-    print(prints_data)
+    #print(prints_data)
     # Pass the fetched data to the template
     return render_template("submissions.html", prints=prints_data)
 @app.route('/admin/submissions/configure', methods=['POST'])
@@ -125,7 +126,7 @@ def getSubmissions():
 @printer
 def configureSubmission():
     data = request.form
-    print(data)
+    #print(data)
     submission_id = data['submission_id']
     action = data['action']
     if action == 'approve':
@@ -133,28 +134,29 @@ def configureSubmission():
         mydb.commit()
         mycursor.execute('SELECT * FROM Submissions WHERE id = %s', (submission_id,))
         submission = mycursor.fetchone()
-    #     mycursor.execute(
-    #     """
-    #     INSERT INTO Prints (PrintId, Seller, PrintName, Customer, PrintCost, Payment, Image, Printed, Accepted, Paid, Delivered)
-    #     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-    #     """,
-    #     (
-    #         submission_id
-    #         session.get("user"),
-    #         ,
-    #         submission['email'],
-    #         submission['budget'],
-    #         payment,
-    #         image,
-    #         printed,
-    #         accepted,
-    #         paid,
-    #         delivered,
-    #     ),
-    # )
+        mycursor.execute(
+    """
+    INSERT INTO Prints (PrintId, Seller, PrintName, Customer, PrintCost, Payment, Printed, Accepted, Paid, Delivered, Custom)
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    """,
+    (
+        submission_id,
+        session.get("user"),
+        submission['customModelName'] if submission['customModel'] == 1 else submission['thingiverseUrl'],
+        submission['email'],
+        submission['budget'],
+        submission['Payment'],
+        0,
+        1,
+        0,
+        0,
+        1 if submission['customModel'] == 1 else 0
+    )
+)
+        mydb.commit()
         mycursor.execute("SELECT * FROM Submissions WHERE Approved = 0 AND Denied = 0")
         prints_data = mycursor.fetchall()
-        print(prints_data)
+        #print(prints_data)
         # Pass the fetched data to the template
         return render_template("submissions.html", prints=prints_data, message="Submission Accepted.")
     elif action == 'deny':
@@ -162,7 +164,7 @@ def configureSubmission():
         mydb.commit()
         mycursor.execute("SELECT * FROM Submissions WHERE Approved = 0 AND Denied = 0")
         prints_data = mycursor.fetchall()
-        print(prints_data)
+        #print(prints_data)
         # Pass the fetched data to the template
         return render_template("submissions.html", prints=prints_data, message="Submission Denied.")
     elif action == 'addon':

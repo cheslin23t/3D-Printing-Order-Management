@@ -24,6 +24,7 @@ def submitOrder():
             "phoneNumber": str,
             "printStuff": str,
             "thingiverseUrl": str,
+            "Payment": str
         }
 
         def check_format(d, format_spec):
@@ -53,14 +54,18 @@ def submitOrder():
     phoneNumber = data['phoneNumber']
     printStuff = data['printStuff']
     thingiverseUrl = data['thingiverseUrl']
+    payment = data['Payment']
     if budget.isdigit() == False:
         return makeResponseJSON(400, "Invalid budget format")
+    if payment not in ['Cash', 'Venmo', 'Credit / Debit Card']:
+        return makeResponseJSON(400, "Invalid payment format")
     saveOrder = {"date": Datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                  "client": fullName,
                  "email": email,
                  "phone": phoneNumber,
                  "budget": int(budget),
-                 "referrer": referrer}
+                 "referrer": referrer,
+                 "payment": payment}
     
     if phoneNumber != '':
         saveOrder['phone'] = phoneNumber
@@ -108,6 +113,6 @@ def submitOrder():
 );
     """
     # Grab data from saveOrder dict
-    mycursor.execute("INSERT INTO Submissions (client, email, phone, budget, referrer, customModel, additionalNotes, modelImage, modelSize, modelDetails, thingiverseUrl) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (saveOrder['client'], saveOrder['email'], saveOrder['phone'], saveOrder['budget'], saveOrder['referrer'], saveOrder['customModel'], saveOrder['additionalNotes'], saveOrder['modelImage'], saveOrder['modelSize'], saveOrder['modelDetails'], saveOrder['thingiverseUrl']))
+    mycursor.execute("INSERT INTO Submissions (client, email, phone, budget, referrer, customModel, additionalNotes, modelImage, modelSize, modelDetails, thingiverseUrl, Payment) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (saveOrder['client'], saveOrder['email'], saveOrder['phone'], saveOrder['budget'], saveOrder['referrer'], saveOrder['customModel'], saveOrder['additionalNotes'], saveOrder['modelImage'], saveOrder['modelSize'], saveOrder['modelDetails'], saveOrder['thingiverseUrl'], saveOrder['payment']))
     mydb.commit()
     return saveOrder

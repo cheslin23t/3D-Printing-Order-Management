@@ -104,8 +104,7 @@ app.config['TRAP_HTTP_EXCEPTIONS']=True
 @app.errorhandler(Exception)
 def handle_error(e):
     try:
-        print(f"Error on {request.path}", color=print.YELLOW)
-        print(e, color=print.RED)
+        
         
         # Get the stack trace if it's a 500 error
         if e == 500:
@@ -114,7 +113,12 @@ def handle_error(e):
             stack_trace = None
         # Flask has built-in descriptions for HTTP status codes
         error_description = f"{e} - {request.url_rule}" if e == 404 else "Internal Server Error"
-
+        if e == 404:
+            error_description = "Page not found"
+            print(f"404 - {request.path}", color=print.BLUE)
+        else:
+            print(f"Error on {request.path}", color=print.YELLOW)
+            print(e, color=print.RED)
         # What happened? Provide more info on the request and the error
         error_msg = f"Error occurred on: {request.path}"
         

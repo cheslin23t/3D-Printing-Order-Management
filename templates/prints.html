@@ -71,47 +71,47 @@
                             <tbody class="text-center" style="border-top-width: 0px;">
                                 {% for print in prints %}
                                 <tr style="background: #262a38;">
-                                    <td>
+                                    
                                         
-<form action="/update_print/{{ print[0] }}" method="POST">
-    <button class="btn btn-success float-end" type="submit" style="padding: 6px 12px; margin: 0px; margin-right: 5px; margin-left: 7px;">Save</button>
-    
-    <input class="form-control" type="text" style="max-width: 164px;height: 36px;padding: 16px 12px;margin-bottom: -36px;margin-left: 7px;" 
-           name="printName" placeholder="Print Name" value="{{ print[2] }}">
-    <input class="form-control" type="text" style="max-width: 164px;height: 36px;padding: 16px 12px;margin-bottom: -36px;margin-left: 177px;" 
-           name="custName" placeholder="Customer's Name" value="{{ print[3] }}">
-    <input class="form-control" type="number" style="max-width: 116px;height: 36px;padding: 16px 12px;margin-bottom: -36px;margin-left: 347px;" 
-           name="printCost" placeholder="Print Cost" value="{{ print[4] }}">
-    <input class="form-control" type="text" style="max-width: 164px;height: 36px;padding: 16px 12px;margin-bottom: -36px;margin-left: 469px;" 
-           name="printLink" placeholder="3D Print File Link" value="{{ print[11] }}">
-    
-    <select class="form-select float-end" style="max-width: 150px;min-width: auto;margin-left: 6px;" name="Delivered">
-        <option value="false" {% if print[10] == 0 %}selected{% endif %}>Not Delivered</option>
-        <option value="true" {% if print[10] == 1 %}selected{% endif %}>Delivered</option>
-    </select>
-    
-    <select class="form-select float-end" style="max-width: 144px;min-width: auto;margin-left: 6px;" name="Paid">
-        <option value="false" {% if print[9] == 0 %}selected{% endif %}>Unpaid</option>
-        <option value="true" {% if print[9] == 1 %}selected{% endif %}>Paid</option>
-    </select>
-    
-    <select class="form-select float-end" style="max-width: 132px;min-width: auto;margin-left: 6px;" name="Printed">
-        <option value="false" {% if print[7] == 0 %}selected{% endif %}>Not Printed</option>
-        <option value="true" {% if print[7] == 1 %}selected{% endif %}>Printed</option>
-    </select>
-    
-    <select class="form-select float-end" style="max-width: 148px;min-width: auto;" name="Accepted">
-        <option value="0" {% if print[8] == 0 %}selected{% endif %}>Not Accepted</option>
-        <option value="1" {% if print[8] == 1 %}selected{% endif %}>Accepted by Colin</option>
-        <option value="2" {% if print[8] == 2 %}selected{% endif %}>Accepted by Kavi</option>
-    </select>
-    
+                                    <form action="/update_print/{{ print['PrintId'] }}" method="POST" style="white-space: nowrap;">
+                                        <input class="form-control" type="text" name="printName" placeholder="Print Name" value="{{ print['PrintName'] }}" style="width: 160px; height: 36px; display: inline-block; margin-right: 5px;">
+                                        
+                                        <input class="form-control" type="text" name="custName" placeholder="Customer's Name" value="{{ print['Customer'] }}" style="width: 160px; height: 36px; display: inline-block; margin-right: 5px;">
+                                        
+                                        <input class="form-control" type="number" name="printCost" placeholder="Print Cost" value="{{ print['PrintCost'] }}" style="width: 100px; height: 36px; display: inline-block; margin-right: 5px;">
+                                        
+                                        <input class="form-control" type="text" name="printLink" placeholder="3D Print File Link" value="{{ print['LinkTo3DPrint'] }}" style="width: 200px; height: 36px; display: inline-block; margin-right: 5px;">
+                                        
+                                        <select class="form-select" name="Delivered" style="width: 130px; height: 36px; display: inline-block; margin-right: 5px;">
+                                            <option value="false" {% if print['Delivered'] == 0 %}selected='selected'{% endif %}>Not Delivered</option>
+                                            <option value="true" {% if print['Delivered'] == 1 %}selected='selected'{% endif %}>Delivered</option>
+                                        </select>
+                                        
+                                        <select class="form-select" name="Paid" style="width: 130px; height: 36px; display: inline-block; margin-right: 5px;">
+                                            <option value="false" {% if print['Paid'] == 0 %}selected='selected'{% endif %}>Unpaid</option>
+                                            <option value="true" {% if print['Paid'] == 1 %}selected='selected'{% endif %}>Paid</option>
+                                        </select>
+                                        
+                                        <select class="form-select" name="Printed" style="width: 130px; height: 36px; display: inline-block; margin-right: 5px;">
+                                            <option value="false" {% if print['Printed'] == 0 %}selected='selected'{% endif %}>Not Printed</option>
+                                            <option value="true" {% if print['Printed'] == 1 %}selected='selected'{% endif %}>Printed</option>
+                                        </select>
+                                        
+                                        <select class="form-select" name="Accepted" style="width: 130px; height: 36px; display: inline-block; margin-right: 5px;">
+                                            <option value="0" {% if print['Accepted'] == 0 %}selected='selected'{% endif %}>Not Accepted</option>
+                                            <option value="1" {% if print['Accepted'] == 1 %}selected='selected'{% endif %}>Accepted by {{ print['Seller'] }}</option>
+                                        </select>
+                                        
+                                        <a class="float-end" href="{{ print['Image'] }}" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 262px; display: inline-block; padding-bottom: 0px; margin-right: 5px;" title="This can only be edited via the shortcut.">Add image in shortcut</a>
+                                        
+                                        <button class="btn btn-success" type="submit" style="height: 36px; display: inline-block; margin-right: 5px;">Save</button>
+                                    </form>
+                                    
+                                    
+                                    
 
-    <a class="float-end" href="{{ print[6] }}" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 262px; margin-top: 7px; padding-bottom: 0px; margin-right: 7px;" title="This can only be edited via the shortcut.">Add image in shortcut</a>
-</form>
 
-
-                                    </td>
+                                    
                                 </tr>
                                 {% endfor %}
                             </tbody>
