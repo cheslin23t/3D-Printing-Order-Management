@@ -142,7 +142,7 @@ def configureSubmission():
     (
         submission_id,
         session.get("user"),
-        submission['customModelName'] if submission['customModel'] == 1 else submission['thingiverseUrl'],
+        submission['modelDetails'] if submission['customModel'] == 1 else submission['thingiverseUrl'],
         submission['email'],
         submission['budget'],
         submission['Payment'],
