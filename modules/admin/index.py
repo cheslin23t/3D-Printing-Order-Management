@@ -105,7 +105,7 @@ def admin():
 @printer
 def getPrints():
     # Fetch data from the database
-    mycursor.execute("SELECT * FROM Prints")
+    mycursor.execute("SELECT * FROM Prints WHERE Accepted = 1")
     prints_data = mycursor.fetchall()
     print(prints_data)
     # Pass the fetched data to the template
@@ -198,6 +198,29 @@ def getReferrers():
     prints_data = []
     # Pass the fetched data to the template
     return render_template("sales.html", prints=prints_data)
+@app.route('/admin/prints/configure', methods=['POST'])
+@logged_in
+@printer
+def configurePrint():
+    data = request.form
+    mycursor.execute('SELECT * FROM Prints WHERE Accepted = 1')
+    prints_data = mycursor.fetchall()
+    if data['action'] == 'hide':
+        mycursor.execute("UPDATE Prints SET Accepted = 0 WHERE PrintId = %s", (data['submission_id'],))
+        mydb.commit()
+        mycursor.execute('SELECT * FROM Prints WHERE Accepted = 1')
+        prints_data = mycursor.fetchall()
+        return render_template("prints.html", prints=prints_data, message="Print hidden.")
+    else:
+        return render_template("prints.html", prints=prints_data, message="Action not supported yet.")
+@app.route('/admin/prints/save', methods=['POST'])
+@logged_in
+@printer
+def savePrint():
+    data = request.form
+    mycursor.execute('SELECT * FROM Prints WHERE Accepted = 1')
+    prints_data = mycursor.fetchall()
+    return render_template("prints.html", prints=prints_data, message=data)
 @app.route("/admin/send", methods=["POST"])
 def sendRoute():
     #print(request.get_json())
