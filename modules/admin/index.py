@@ -136,22 +136,26 @@ def configureSubmission():
         submission = mycursor.fetchone()
         mycursor.execute(
     """
-    INSERT INTO Prints (PrintId, Seller, PrintName, Customer, PrintCost, Payment, Printed, Accepted, Paid, Delivered, Custom)
+    INSERT INTO Prints (PrintId, Seller, PrintName, Customer, PrintCost, Payment, Printed, Accepted, Paid, Delivered, Custom, LinkTo3DPrint, Email, Phone, Date)
     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     """,
     (
         submission_id,
         session.get("user"),
         submission['modelDetails'] if submission['customModel'] == 1 else submission['thingiverseUrl'],
-        submission['email'],
+        submission['client'],
         submission['budget'],
         submission['Payment'],
         0,
         1,
         0,
         0,
-        1 if submission['customModel'] == 1 else 0
-    )
+        1 if submission['customModel'] == 1 else 0,
+        "https://thingiverse.com/thing:" + submission['thingiverseUrl'] if submission['customModel'] == 0 else None,
+        submission['email'],
+        submission['phone'],
+        submission['date']
+    )   
 )
         mydb.commit()
         mycursor.execute("SELECT * FROM Submissions WHERE Approved = 0 AND Denied = 0")
