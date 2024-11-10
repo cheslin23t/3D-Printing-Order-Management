@@ -258,6 +258,8 @@ canvas#particleCanvas {
     animation: load 0.4s ease-in-out forwards;
     z-index: 1;
     width: 100%;
+    height: calc(100vh - var(--navbar-height));
+    top: var(--navbar-height);
 }
 
 p {
@@ -716,7 +718,7 @@ body.halloween .header > div.mid-spot {
 body.halloween .header h2 ,
 body.halloween p,
 body.halloween > * > * :not(.contact-btn, div, span, input, select, textarea, label, .keep, a, .card, .card-img-top, .card-title, .card-text, .badge) {
-    filter: invert(1) brightness(4.7) hue-rotate(-45deg);
+    filter: invert(1) brightness(4.7) hue-rotate(-65deg);
 }
 body.halloween .header h2 a{
     filter: hue-rotate(50deg);
@@ -730,9 +732,9 @@ body.halloween .header .spotlight {
 body.halloween .mountains > div {
     box-shadow: 
     -1em -0.2em 0.4em -1.1em #c2ccff,
-    inset 0em 0em 0em 2px #10d8318a,
-    inset 0.2em 0.3em 0.2em -0.2em #ff7300,
-    inset 10.2em 10.3em 2em -10em #f7940036;
+    inset 0em 0em 0em 2px #BF614D,
+    inset 0.2em 0.3em 0.2em -0.2em #DCCEB1,
+    inset 10.2em 10.3em 2em -10em rgb(255, 38, 0);
 }
 
 body.halloween .content-section,
@@ -834,8 +836,8 @@ body.halloween .content-section ::after :not(a, .card, .card-img-top, .card-titl
 
 :root {
   --neon-blue: #03e9f4;
-  --neon-text: #ff7100;
-  --neon-shadow: #ff5202;
+  --neon-text: #EBBA38;
+  --neon-shadow: #C1311C;
   --bg: #050801;
 }
 
