@@ -8,6 +8,10 @@ canvas.height = window.innerHeight;
 let particles = [];
 let particleCount = calculateParticleCount();
 
+// Load the particle image
+const particleImage = new Image();
+particleImage.src = '/static/turk.webp';
+
 class Particle {
     constructor() {
         this.reset();
@@ -22,6 +26,7 @@ class Particle {
         this.y = Math.random() * canvas.height;
         this.speed = Math.random() / 5 + 0.1;
         this.opacity = 1;
+        this.size = Math.random() * 20 + 5; // Random size between 5 and 25
         this.fadeDelay = Math.random() * 600 + 100;
         this.fadeStart = Date.now() + this.fadeDelay;
         this.fadingOut = false;
@@ -46,9 +51,10 @@ class Particle {
     }
 
     draw() {
-        //ctx.fillStyle = `rgba(${255 - (Math.random() * 255/2)}, 255, 255, ${this.opacity})`;
-        ctx.fillStyle = `rgba(255, 113, 0, ${this.opacity})`;
-        ctx.fillRect(this.x, this.y, 0.4, Math.random() * 2 + 1);
+        // Set global alpha to handle opacity
+        ctx.globalAlpha = this.opacity;
+        ctx.drawImage(particleImage, this.x, this.y, this.size, this.size);
+        ctx.globalAlpha = 1; // Reset alpha
     }
 }
 
@@ -81,12 +87,12 @@ function onResize() {
 
 window.addEventListener('resize', onResize);
 
-initParticles();
-animate();
+particleImage.onload = () => {
+    initParticles();
+    animate();
+};
 
-
-
-  
+// Navbar height handling
 const navbar = document.querySelector('.navbar');
 const navbarHeight = navbar.offsetHeight;
 document.documentElement.style.setProperty('--navbar-height', `${navbarHeight}px`);
