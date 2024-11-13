@@ -18,6 +18,7 @@
 </head>
 
 <body class="halloween">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script type="module" src="static/x-frame-bypass.js"></script>
     <script src="static/index.js"></script>
     {% if user %}
@@ -191,7 +192,79 @@
         </a>
     </center>
     <br>
-    <div class="content-section">
+    <canvas id="threeCanvas"></canvas>
+    <script>
+        // Get the canvas by ID
+        const canvas = document.getElementById('threeCanvas');
+
+        // Set up the scene, camera, and renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        
+        // Create a geometry and material for the dots
+        const pointsMaterial = new THREE.PointsMaterial({ color: 0x00ff00, size: 0.1 });
+
+        // Geometry to store the positions of the points
+        const geometry = new THREE.Geometry();
+
+        // A simple 3D benchy approximation with points (replace with your own model data)
+        const benchyPoints = [
+            [0, 0, 0], [1, 0, 0], [2, 0, 0], [3, 0, 0], [0, 1, 0], [0, 2, 0], [0, 3, 0],
+            [1, 1, 0], [2, 1, 0], [3, 1, 0], [1, 2, 0], [2, 2, 0], [3, 2, 0], [0, 0, 1], [1, 0, 1]
+        ];
+
+        // Add points to the geometry
+        benchyPoints.forEach(point => {
+            geometry.vertices.push(new THREE.Vector3(...point));
+        });
+
+        // Create the point cloud
+        const points = new THREE.Points(geometry, pointsMaterial);
+        scene.add(points);
+
+        // Create a web of lines between points
+        const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffffff, opacity: 0.5, transparent: true });
+        benchyPoints.forEach((start, idx) => {
+            benchyPoints.forEach((end, j) => {
+                if (idx !== j) {
+                    const lineGeometry = new THREE.Geometry();
+                    lineGeometry.vertices.push(new THREE.Vector3(...start));
+                    lineGeometry.vertices.push(new THREE.Vector3(...end));
+                    const line = new THREE.Line(lineGeometry, lineMaterial);
+                    scene.add(line);
+                }
+            });
+        });
+
+        // Position the camera
+        camera.position.z = 5;
+
+        // Animation loop to rotate the scene
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotate the whole scene for some motion
+            scene.rotation.x += 0.01;
+            scene.rotation.y += 0.01;
+
+            renderer.render(scene, camera);
+        }
+
+        // Handle window resizing
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
+
+        // Start the animation
+        animate();
+    </script>
+    <br>
+
+    <div class="content-section" style="padding-bottom: 0%; padding-top: 0%">
         <div class="content-acc">
             <div></div>
             <div></div>
@@ -214,62 +287,73 @@
         <br>
         <br>
         <br>
-        <center data-bs-theme="dark">
-    <div class="row">
-        <div class="col h-100">
-            <div class="card" style="width: 18rem;">
-                <img src="https://img.stablecog.com/insecure/1536w/aHR0cHM6Ly9iLnN0YWJsZWNvZy5jb20vY2ZhNmQ2YWItYjQ4MS00YmIwLTlkYjAtNzgwMzdlZDdhZTZmLmpwZWc.webp"
-                    class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Colin Heslin</h5>
-                    <p class="card-text fs-6"><span class="badge rounded-pill text-bg-primary">Website Design & Functions</span><br>
-                        <p class="card-text fs-6"><span class="badge rounded-pill text-bg-info">3D Prints</span><br><br><a
-                            href="mailto:colin.heslin@irvingtonschools.org">Email me</a> if you have any general questions. Customers may ask to communicate via phone number if they wish.</p>
+        <center data-bs-theme="dark" class="second">
+            <div class="row">
+                <div class="col h-100">
+                    <div class="card" style="width: 18rem;">
+                        <img src="https://img.stablecog.com/insecure/1536w/aHR0cHM6Ly9iLnN0YWJsZWNvZy5jb20vY2ZhNmQ2YWItYjQ4MS00YmIwLTlkYjAtNzgwMzdlZDdhZTZmLmpwZWc.webp"
+                            class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Colin Heslin</h5>
+                            <p class="card-text fs-6"><span class="badge rounded-pill text-bg-primary">Website Design &
+                                    Functions</span><br>
+                            <p class="card-text fs-6"><span class="badge rounded-pill text-bg-info">3D
+                                    Prints</span><br><br><a href="mailto:colin.heslin@irvingtonschools.org">Email me</a>
+                                if you have any general questions. Customers may ask to communicate via phone number if
+                                they wish.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100" style="width: 18rem;">
-                <img src="https://www.greatcanadiantrails.com/croppedImages/North-America/Canada/Banff-National-Park-2763333-1600px.jpg"
-                    class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Kavi Manchanda</h5>
-                    <p class="card-text fs-6"><p class="card-text fs-6"><span class="badge rounded-pill text-bg-danger">Administrator</span><br><p class="card-text fs-6"><span class="badge rounded-pill text-bg-info">3D Prints</span><br><a
-                            href="mailto:kavi.manchanda@irvingtonschools.org">Email me</a> if you have any specific
-                        printing
-                        questions.</p>
-                        
-                </div>
-            </div>
-        </div>
+                <div class="col">
+                    <div class="card h-100" style="width: 18rem;">
+                        <img src="https://www.greatcanadiantrails.com/croppedImages/North-America/Canada/Banff-National-Park-2763333-1600px.jpg"
+                            class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Kavi Manchanda</h5>
+                            <p class="card-text fs-6">
+                            <p class="card-text fs-6"><span
+                                    class="badge rounded-pill text-bg-danger">Administrator</span><br>
+                            <p class="card-text fs-6"><span class="badge rounded-pill text-bg-info">3D
+                                    Prints</span><br><a href="mailto:kavi.manchanda@irvingtonschools.org">Email me</a>
+                                if you have any specific
+                                printing
+                                questions.</p>
 
-        <div class="col">
-            <div class="card h-100" style="width: 18rem;">
-                <img src="https://cdn.theatlantic.com/thumbor/zPjLr2iJmQmXa9fHPuP6w_ycz-c=/1500x998/media/img/photo/2016/06/earth-from-above-expedition-47-aboa/e01_ISS047E133215/original.jpg"
-                    class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Keane Nadler</h5>
-                    <p class="card-text fs-6">Print Addons<br>Custom 3D Modeler<br><a
-                            href="mailto:keane.nadler@irvingtonschools.org">Email me</a> if you have any questions
-                        related
-                        to
-                        custom modeling.</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="col">
-            <div class="card h-100" style="width: 18rem;">
-                <img src="https://content.jwplatform.com/thumbs/AhG5YttF-720.jpg"
-                    class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Matthew Berger</h5>
-                    <p class="card-text fs-6">Salesman<br>yep that's it.</p>
+                <div class="col">
+                    <div class="card h-100" style="width: 18rem;">
+                        <img src="https://cdn.theatlantic.com/thumbor/zPjLr2iJmQmXa9fHPuP6w_ycz-c=/1500x998/media/img/photo/2016/06/earth-from-above-expedition-47-aboa/e01_ISS047E133215/original.jpg"
+                            class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Keane Nadler</h5>
+                            <p class="card-text fs-6">Print Addons<br>Custom 3D Modeler<br><a
+                                    href="mailto:keane.nadler@irvingtonschools.org">Email me</a> if you have any
+                                questions
+                                related
+                                to
+                                custom modeling.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100" style="width: 18rem;">
+                        <img src="https://content.jwplatform.com/thumbs/AhG5YttF-720.jpg" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Matthew Berger</h5>
+                            <p class="card-text fs-6">Salesman<br>yep that's it.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        </div>
-    </center>
+        </center>
+    </div>
+
+    <div style="height: 8em; width: 100%; background-color: #424754;">
+        <center style="bottom: 0; position:fixed;"><a href="/privacy">Privacy Policy</a></center>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -489,12 +573,14 @@ function bufferToBase64url(buffer) {
                                             <label for="modelDetails" class="form-label">Describe the custom model you'd
                                                 like</label>
                                             <textarea class="form-control .bg-secondary.bg-gradient" id="modelDetails"
-                                                rows="1" placeholder="Enter your model description" name="modelDetails"></textarea>
+                                                rows="1" placeholder="Enter your model description"
+                                                name="modelDetails"></textarea>
                                         </div>
                                         <div class="mb-3">
                                             <label for="modelSize" class="form-label">Size of Model</label>
                                             <input type="text" class="form-control .bg-secondary.bg-gradient"
-                                                id="modelSize" name="modelSize" placeholder="3in Wide 4in Length 6in Tall">
+                                                id="modelSize" name="modelSize"
+                                                placeholder="3in Wide 4in Length 6in Tall">
                                         </div>
 
                                     </div>
@@ -503,8 +589,8 @@ function bufferToBase64url(buffer) {
                                 <div id="customModelQuestions4" class="collapse">
                                     <div class="mb-3">
                                         <label for="additionalNotes" class="form-label">Additional Notes</label>
-                                        <textarea class="form-control .bg-secondary.bg-gradient" name="additionalNotes" id="additionalNotes"
-                                            rows="3"
+                                        <textarea class="form-control .bg-secondary.bg-gradient" name="additionalNotes"
+                                            id="additionalNotes" rows="3"
                                             placeholder="Make sure part A and part B are printed separately..."></textarea>
                                     </div>
                                 </div>
@@ -551,7 +637,10 @@ function bufferToBase64url(buffer) {
                                     <option value="Credit / Debit Card">Credit / Debit Card (Increased Fees)</option>
                                 </select>
                             </div>
-                            <div class="form-text" id="expectedAmountText">You will not be paying now. We just need this information on record to account for certain costs such as transaction fees. Venmo and Cash are the best options to avoid these.<br>A maximum of $1.50 worth of coins are allowed for the cash option. The rest must be in dollar bills.</div>
+                            <div class="form-text" id="expectedAmountText">You will not be paying now. We just need this
+                                information on record to account for certain costs such as transaction fees. Venmo and
+                                Cash are the best options to avoid these.<br>A maximum of $1.50 worth of coins are
+                                allowed for the cash option. The rest must be in dollar bills.</div>
                         </div>
                     </div>
 

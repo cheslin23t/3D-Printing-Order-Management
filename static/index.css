@@ -8,11 +8,23 @@ html { -ms-overflow-style: none; scrollbar-width: none; }
 body {
     margin: 0;
     font-family: Untitled Sans, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
-    background: #05060f linear-gradient(0deg,rgba(216,236,248,.06),rgba(152,192,239,.06));
+    
+    /* Set a consistent gradient background */
+    background: #121521; /* Solid dark background */
+    background: linear-gradient(0deg, rgba(216, 236, 248, 0.06), rgba(152, 192, 239, 0.06)), #05060f;
 
     font-size: max(calc(var(--_size) * 0.03), 10px);
     --_factor: min(600px, 80vh);
     --_size: min(var(--_factor), 80vw);
+}
+header, footer, .content, .container, center, .content-section {
+    background: #121521; /* Matching the background color */
+}
+.second {
+    background: linear-gradient(0deg, rgba(216, 236, 248, 0.082), #121521), #343846;
+}
+br {
+    background: #121521
 }
 .threedobj { display: block; }
 body.gold .header h2 ,
@@ -255,13 +267,22 @@ button.contact-btn:hover .glow::after, button.contact-btn:hover .glow::before {
 
 canvas#particleCanvas {
     position: absolute; pointer-events: none;
-    animation: load 0.4s ease-in-out forwards;
-    z-index: 1;
+    z-index: -1;
     width: 100%;
+    opacity: 0;
     height: calc(100vh - var(--navbar-height));
     top: var(--navbar-height);
+    animation: load2 2s ease-in-out forwards;
+    animation-delay: 2s; /* Wait for 2 seconds before starting the animation */
 }
-
+@keyframes load {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 p {
     font-size: 1.5em;
 }

@@ -7,3 +7,6 @@ def index():
     #print(session.get('user'))
     return render_template('index.html', user=session.get('user'))
 
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
