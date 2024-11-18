@@ -20,7 +20,7 @@
 <body class="halloween">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script type="module" src="static/x-frame-bypass.js"></script>
-    <script src="static/index.js"></script>
+    <script src="static/index.js" defer></script>
     {% if user %}
     <script>
         document.body.classList.toggle('admin');
@@ -193,75 +193,93 @@
     </center>
     <br>
     <canvas id="threeCanvas"></canvas>
-    <script>
+    <!-- <script>
         // Get the canvas by ID
-        const canvas = document.getElementById('threeCanvas');
-
+        const canvas2 = document.getElementById('threeCanvas');
+    
         // Set up the scene, camera, and renderer
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: canvas });
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas2 });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        
+    
         // Create a geometry and material for the dots
         const pointsMaterial = new THREE.PointsMaterial({ color: 0x00ff00, size: 0.1 });
-
+    
         // Geometry to store the positions of the points
-        const geometry = new THREE.Geometry();
-
+        const geometry = new THREE.BufferGeometry();
+    
         // A simple 3D benchy approximation with points (replace with your own model data)
         const benchyPoints = [
             [0, 0, 0], [1, 0, 0], [2, 0, 0], [3, 0, 0], [0, 1, 0], [0, 2, 0], [0, 3, 0],
             [1, 1, 0], [2, 1, 0], [3, 1, 0], [1, 2, 0], [2, 2, 0], [3, 2, 0], [0, 0, 1], [1, 0, 1]
         ];
-
-        // Add points to the geometry
-        benchyPoints.forEach(point => {
-            geometry.vertices.push(new THREE.Vector3(...point));
-        });
-
+    
+        // Convert benchyPoints to Float32Array for BufferGeometry
+        const vertices = new Float32Array(benchyPoints.flat());
+        geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+    
+        // Center the geometry
+        geometry.computeBoundingBox();
+        const boundingBox = geometry.boundingBox;
+        const center = new THREE.Vector3();
+        boundingBox.getCenter(center);
+        geometry.translate(-center.x, -center.y, -center.z);
+    
         // Create the point cloud
         const points = new THREE.Points(geometry, pointsMaterial);
         scene.add(points);
-
+    
         // Create a web of lines between points
         const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffffff, opacity: 0.5, transparent: true });
         benchyPoints.forEach((start, idx) => {
             benchyPoints.forEach((end, j) => {
                 if (idx !== j) {
-                    const lineGeometry = new THREE.Geometry();
-                    lineGeometry.vertices.push(new THREE.Vector3(...start));
-                    lineGeometry.vertices.push(new THREE.Vector3(...end));
+                    const lineGeometry = new THREE.BufferGeometry();
+                    const lineVertices = new Float32Array([...start, ...end]);
+                    lineGeometry.setAttribute('position', new THREE.BufferAttribute(lineVertices, 3));
                     const line = new THREE.Line(lineGeometry, lineMaterial);
                     scene.add(line);
                 }
             });
         });
-
+    
         // Position the camera
-        camera.position.z = 5;
-
+        const boundingSphere = geometry.boundingSphere || geometry.computeBoundingSphere();
+        const radius = boundingSphere.radius;
+        camera.position.z = radius * 2.5; // Ensure the object is fully visible
+        camera.lookAt(new THREE.Vector3(0, 0, 0)); // Point camera to center
+    
+        // Add some light for better visibility (optional)
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(1, 1, 1);
+        scene.add(directionalLight);
+    
         // Animation loop to rotate the scene
         function animate() {
             requestAnimationFrame(animate);
-
+    
             // Rotate the whole scene for some motion
             scene.rotation.x += 0.01;
             scene.rotation.y += 0.01;
-
+    
             renderer.render(scene, camera);
         }
-
+    
         // Handle window resizing
         window.addEventListener('resize', () => {
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
         });
-
+    
         // Start the animation
         animate();
-    </script>
+    </script> -->
+    
+    
     <br>
 
     <div class="content-section" style="padding-bottom: 0%; padding-top: 0%">
@@ -280,6 +298,9 @@
         <br>
         <br>
         <br>
+        <center>
+            <img src='/static/model.png' width='35%' id='noStyle'>
+        </center>
         <br>
         <br>
         <br>
@@ -351,10 +372,22 @@
             </div>
         </center>
     </div>
-
-    <div style="height: 8em; width: 100%; background-color: #424754;">
-        <center style="bottom: 0; position:fixed;"><a href="/privacy">Privacy Policy</a></center>
+    <div class="footer-bottom">
+        <div class="container" id='foot'>
+            <div class="row" id='foot'>
+                <div class="col-lg-6 col-md-6 col-sm-12 column">
+                    <div class="copyright"><a href="https://chesdev.me/">Printed</a> &copy; 2024 All Rights Reserved</div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 column">
+                    <ul class="footer-nav">
+                        <li><a href="/terms" id='footlink'>Terms of Service</a></li>
+                        <li><a href="/privacy" id='footlink'>Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>

@@ -10,8 +10,8 @@ body {
     font-family: Untitled Sans, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
     
     /* Set a consistent gradient background */
-    background: #121521; /* Solid dark background */
-    background: linear-gradient(0deg, rgba(216, 236, 248, 0.06), rgba(152, 192, 239, 0.06)), #05060f;
+    background: #06091e;; 
+    /* background: linear-gradient(0deg, rgba(216, 236, 248, 0.06), rgba(152, 192, 239, 0.06)), #05060f; */
 
     font-size: max(calc(var(--_size) * 0.03), 10px);
     --_factor: min(600px, 80vh);
@@ -704,9 +704,10 @@ body.halloween .header > div.mid-spot {
 }
 body.halloween .header h2 ,
 body.halloween p,
-body.halloween > * > * :not(.contact-btn, div, span, input, select, textarea, label, .keep, a, .card, .card-img-top, .card-title, .card-text, .badge) {
+body.halloween > * > * :not(.contact-btn, div, span, input, select, textarea, label, .keep, a, .card, .card-img-top, .card-title, .card-text, .badge, #noStyle) {
     filter: invert(1) brightness(4.7) hue-rotate(50deg);
 }
+
 body.halloween .header h2 a{
     filter: hue-rotate(50deg);
 }
@@ -726,7 +727,7 @@ body.halloween .mountains > div {
 
 body.halloween .content-section,
 body.halloween .content-section ::before,
-body.halloween .content-section ::after :not(a, .card, .card-img-top, .card-title, .card-text, .badge) {
+body.halloween .content-section ::after :not(a, .card, .card-img-top, .card-title, .card-text, .badge, #noStyle) {
     filter: invert(1) brightness(4.4) opacity(1) hue-rotate(0deg);
 }
 body.halloween .header > div.mid-spot:hover {
@@ -738,7 +739,7 @@ body.halloween .header > div.mid-spot {
 }
 body.halloween .header h2 ,
 body.halloween p,
-body.halloween > * > * :not(.contact-btn, div, span, input, select, textarea, label, .keep, a, .card, .card-img-top, .card-title, .card-text, .badge) {
+body.halloween > * > * :not(.contact-btn, div, span, input, select, textarea, label, .keep, a, .card, .card-img-top, .card-title, .card-text, .badge, #noStyle) {
     filter: invert(1) brightness(4.7) hue-rotate(-65deg);
 }
 body.halloween .header h2 a{
@@ -760,7 +761,7 @@ body.halloween .mountains > div {
 
 body.halloween .content-section,
 body.halloween .content-section ::before,
-body.halloween .content-section ::after :not(a, .card, .card-img-top, .card-title, .card-text, .badge) {
+body.halloween .content-section ::after :not(a, .card, .card-img-top, .card-title, .card-text, .badge, #noStyle) {
     filter: invert(1) brightness(4.4) opacity(1) hue-rotate(50deg);
 }
 /* Reverse 'colorize' animation */
@@ -953,3 +954,48 @@ body.halloween .content-section ::after :not(a, .card, .card-img-top, .card-titl
 #customModelAddon option {
     cursor: pointer;
 }
+#foot {
+    background:transparent;
+}
+#footlink {
+    color: #9ea0a9;
+}
+.footer-bottom{
+    position: relative;
+    background: #424754;
+    padding: 25px 0px 22px 0px;
+  }
+  .footer-bottom .copyright,
+  .footer-bottom .copyright a,
+  .footer-bottom .footer-nav li a{
+    position: relative;
+    color: #9ea0a9;
+  }
+  .footer-bottom .copyright a:hover,
+  .footer-bottom .footer-nav li a:hover{
+    color: #ff5e14;
+  }
+  .footer-bottom .footer-nav{
+    position: relative;
+    text-align: right;
+  }
+  .footer-bottom .footer-nav li{
+    position: relative;
+    display: inline-block;
+    margin-left: 29px;
+  }
+  .footer-bottom .footer-nav li:first-child{
+    margin-left: 0px;
+  }
+  .footer-bottom .footer-nav li:before{
+    position: absolute;
+    content: '';
+    background: #9ea0a9;
+    width: 1px;
+    height: 14px;
+    top: 7px;
+    left: -18px;
+  }
+  .footer-bottom .footer-nav li:first-child:before{
+    display: none;
+  }
