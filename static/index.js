@@ -17,15 +17,16 @@ class Particle {
         this.y = Math.random() * canvas.height;
 
         // Red hues
-        this.colors = ['#FF0000', '#FF6347', '#FF4500', '#D32F2F', '#B71C1C']; // Red hues
-        this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
+        // this.colors = ['#FFF']; // Red hues
+        // this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
+        this.color = '#FFF'
     }
 
     reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
         this.speed = Math.random() / 5 + 0.05; // Slow speed
-        this.opacity = Math.random() * 0.3 + 0.5; // Subtle opacity
+        this.opacity = Math.random() * 0.3 + 0.65; // Subtle opacity
         this.size = 2; // Small 2px size for each particle
         this.fadeDelay = Math.random() * 600 + 100;
         this.fadeStart = Date.now() + this.fadeDelay;
@@ -82,7 +83,7 @@ class Particle {
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
                     
-                    ctx.strokeStyle = 'rgba(255, 200, 200, 0.4)' // Subtle red lines
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)' // Subtle red lines
                     ctx.stroke();
                 }
             }
