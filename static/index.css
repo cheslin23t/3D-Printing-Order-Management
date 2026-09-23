@@ -999,3 +999,23 @@ body.halloween .content-section ::after :not(a, .card, .card-img-top, .card-titl
   .footer-bottom .footer-nav li:first-child:before{
     display: none;
   }
+
+.demo-nav-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: .5rem;
+  margin-left: auto;
+  margin-right: 1%;
+}
+
+@media (max-width: 600px) {
+  .demo-nav-actions {
+    width: 100%;
+    margin: .5rem .5rem 0;
+  }
+
+  .demo-nav-actions .btn {
+    flex: 1 1 10rem;
+  }
+}
