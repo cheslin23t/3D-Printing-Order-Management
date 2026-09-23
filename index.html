@@ -1,147 +1,722 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Printed is a 3D-printing order workflow built for a small student-run business.">
-  <meta name="theme-color" content="#06091e">
-  <title>Printed — 3D printing orders</title>
-  <link rel="icon" href="static/favicon.ico">
-  <link rel="stylesheet" href="static/demo.css">
-  <script src="static/demo.js" defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Printed</title>
+    <meta name="description" content="A website that allows buyers to connect with our sellers, and partners.">
+    <meta content="Printed" property="og:title" />
+    <meta content="A website that allows buyers to connect with our sellers, and partners." property="og:description" />
+    <meta content="https://chesdev.me" property="og:url" />
+    <meta content="https://chesdev.me/static/embed.png" property="og:image" />
+    <meta content="#ff7100" data-react-helmet="true" name="theme-color" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/index.css">
 </head>
-<body class="landing">
-  <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <a class="brand" href="index.html" aria-label="Printed home">
-      <span class="brand-mark" aria-hidden="true">P</span>
-      <span>Printed</span>
-    </a>
-    <div class="header-actions" aria-label="Demo actions">
-      <button class="button" type="button" data-dialog-open="access-dialog">Demo access</button>
-      <a class="button primary" href="prints.html">View dashboard</a>
-    </div>
-  </header>
-
-  <main id="main">
-    <section class="hero-demo" aria-labelledby="hero-title">
-      <div class="hero-inner">
-        <p class="eyebrow">Introducing</p>
-        <h1 id="hero-title">Printed</h1>
-        <p class="hero-subtitle">A complete intake and production workflow for a small 3D-printing team—from the first customer request to the finished handoff.</p>
-        <div class="hero-actions">
-          <button class="button order-cta" type="button" data-dialog-open="order-dialog">Create an order</button>
-          <a class="button" href="#workflow">See how it works</a>
+<body class="halloween">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script type="module" src="static/x-frame-bypass.js"></script>
+    <script src="static/index.js" defer></script>
+    <nav class="navbar bg-dark keep" data-bs-theme="dark">
+        <a class="navbar-brand keep" href="#">
+            <div class="navbarT keep">
+                <h2 onclick="document.body.classList.toggle('gold');" class="keep">Printed</h2>
+            </div>
+        </a>
+        <a href='prints.html' class="btn btn-outline-light keep" style="position: absolute; right: 2.85cm">Admin Dashboard Demo</a>
+        <button class="btn btn-outline-light ms-auto keep" style="margin-right: 1%;" data-bs-toggle="modal"
+            data-bs-target="#loginModal">Admin Login (Demo)</button>
+    </nav>
+    <div class="modal fade keep" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered keep">
+            <div class="modal-content keep">
+                <div class="modal-header keep">
+                    <h1 class="modal-title fs-5 keep" id="loginModalLabel">Admin Secure Gate</h1>
+                    <button type="button" class="btn-close keep" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body keep">
+                    <p class="keep">GitHub Pages demo mode: backend login is disabled.</p>
+                </div>
+                <div class="modal-footer keep">
+                    <button type="button" class="btn btn-secondary keep" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
-        <div class="benchy-stage" aria-hidden="true">
-          <img src="static/model.png" alt="" width="1000" height="900">
-        </div>
-      </div>
-    </section>
-
-    <section class="feature-section" id="workflow" aria-labelledby="workflow-title">
-      <div class="section-heading">
-        <span class="demo-pill">Interactive showcase</span>
-        <h2 id="workflow-title">The original workflow, safely explorable</h2>
-        <p>This static demo keeps the public order form and the internal review tools visible without exposing the database, login codes, or real customer information.</p>
-      </div>
-      <div class="feature-grid">
-        <article class="feature-card">
-          <strong>1. Capture the request</strong>
-          <p>Customers choose an existing model or describe a custom build, then add contact, budget, and payment details.</p>
-        </article>
-        <article class="feature-card">
-          <strong>2. Review the submission</strong>
-          <p>The team inspects each request, checks the reference material, and approves or denies it from one queue.</p>
-        </article>
-        <article class="feature-card">
-          <strong>3. Track production</strong>
-          <p>Accepted work moves into a print table where payment, printing, and delivery states stay visible.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="team-section" aria-labelledby="team-title">
-      <div class="section-heading">
-        <p class="eyebrow">The team</p>
-        <h2 id="team-title">Built around real roles</h2>
-        <p>The dashboard reflects how the original group divided website, production, modeling, and sales work.</p>
-      </div>
-      <div class="team-grid">
-        <article class="team-card"><div class="team-visual"><span>CH</span></div><div class="team-copy"><h3>Colin Heslin</h3><p>Website design, product workflow, and 3D prints.</p></div></article>
-        <article class="team-card"><div class="team-visual"><span>KM</span></div><div class="team-copy"><h3>Kavi Manchanda</h3><p>Administration and print production.</p></div></article>
-        <article class="team-card"><div class="team-visual"><span>KN</span></div><div class="team-copy"><h3>Keane Nadler</h3><p>Custom modeling and print add-ons.</p></div></article>
-        <article class="team-card"><div class="team-visual"><span>MB</span></div><div class="team-copy"><h3>Matthew Berger</h3><p>Sales and customer referrals.</p></div></article>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <span>Printed © 2024 · Portfolio demo</span>
-    <nav aria-label="Legal"><a href="terms.html">Terms of service</a><a href="privacy.html">Privacy policy</a></nav>
-  </footer>
-
-  <dialog id="access-dialog" aria-labelledby="access-title">
-    <div class="dialog-shell">
-      <header class="dialog-header"><div><span class="demo-pill">Demo mode</span><h2 id="access-title">The secure gate is disabled here</h2></div><button class="icon-button" type="button" aria-label="Close demo access information" data-dialog-close>×</button></header>
-      <div class="dialog-body"><p class="dialog-intro">The original application used short-lived access codes and role checks. This public version skips authentication and opens a sample dashboard with fictional records, so the workflow can be explored without exposing credentials or customer data.</p></div>
-      <footer class="dialog-footer"><button class="button ghost" type="button" data-dialog-close>Close</button><a class="button primary" href="prints.html">Open demo dashboard</a></footer>
     </div>
-  </dialog>
+    <script>
+        function classParent(e, name) {
+            if (e.parentElement)
+                if (e.parentElement.classList.contains(name)) return e.parentElement;
+                else return classParent(e.parentElement, name)
+        }
+        // Function to make all elements fall and rotate out
+        // Function to make all elements (except exceptions) fall and rotate out
+        function transitionAllElements() {
+            const elements = document.querySelectorAll('*'); // Select all elements
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            // List of exceptions by tag name and class
+            const tagExceptions = ['BODY', 'HTML', "NAV", "LINK", "SCRIPT", "HEAD", "CENTER"]; // Example: don't transition body or html
+            const classExceptions = ['accent-lines', 'keep', 'overlay']; // Example: exclude elements with these classes
+            elements.forEach((element, index) => {
+                const tagName = element.tagName;
+                const classList = Array.from(element.classList);
+                if (classParent(element, "overlay") != undefined) {
+                    return
+                }
+                // Skip elements if they match the exceptions
+                if (tagExceptions.includes(tagName) || classList.some(cls => classExceptions.includes(cls))) {
+                    return; // Skip this element
+                }
+                // Set initial styles for transition
+                element.style.transition = 'opacity 1s ease-in-out'; // Fade-out transition
+                element.style.opacity = '1'; // Ensure elements start fully visible
+                // Trigger the fade-out effect
+                setTimeout(() => {
+                    element.style.opacity = '0'; // Fade to transparent
+                    // Remove the element after the fade-out transition ends
+                    setTimeout(() => {
+                        element.remove();
+                    }, 500); // Match this timeout to the duration of the opacity transition
+                }, 200); // Adjust this delay as needed
+                const resizeBody = setInterval(() => {
+                    if (document.body.clientHeight > 0) {
+                        document.body.style.height = `${document.body.clientHeight - 10}px`; // Decrease height slowly
+                    } else {
+                        clearInterval(resizeBody); // Stop the interval when height is 0
+                    }
+                }, 100);
+                // Set opacity to 0 after a slight delay
+                setTimeout(() => {
+                    const tagName = element.tagName;
+                    const classList = Array.from(element.classList);
+                    if (classParent(element, "overlay") != undefined) {
+                        return
+                    }
+                    // Skip elements if they match the exceptions
+                    if (tagExceptions.includes(tagName) || classList.some(cls => classExceptions.includes(cls))) {
+                        return; // Skip this element
+                    } else {
+                        element.style.opacity = '0';
+                        setTimeout(() => {
+                            element.remove();
+                        }, 500);
+                    }
+                }, 200); // Adjust this delay as needed
+            });
+            setTimeout(() => {
+                var overlay = document.getElementsByClassName('overlay');
+                overlay = overlay[0]
+                overlay.style.visibility = 'visible'; // Make overlay visible
+                overlay.style.opacity = '1'; // Fade in the overlay
+                overlay.style.bottom = '-10%'; // Move overlay up to fill the screen
+            }, 1000); // Adjust this timeout to match the duration of the previous transition
+            // Optionally, clear the elements after transition is done
+        }
 
-  <dialog id="order-dialog" aria-labelledby="order-title">
-    <div class="dialog-shell">
-      <header class="dialog-header">
-        <div><span class="demo-pill">Demo order</span><h2 id="order-title">Tell us what you want to print</h2></div>
-        <button class="icon-button" type="button" aria-label="Close order form" data-dialog-close>×</button>
-      </header>
-
-      <div class="dialog-body">
-        <div data-order-form-view>
-          <p class="dialog-intro">This recreates the original intake form. Submitting generates a sample confirmation only; nothing leaves this page.</p>
-          <form id="order-form" data-order-form novalidate>
-            <fieldset class="form-section">
-              <legend>Contact information</legend>
-              <div class="form-grid">
-                <div class="field"><label for="full-name">Full name</label><input id="full-name" name="fullName" autocomplete="name" data-required="true" data-error="full-name-error"><p class="field-error" id="full-name-error"></p></div>
-                <div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" data-required="true" data-error="email-error"><p class="field-error" id="email-error"></p></div>
-                <div class="field full"><label for="phone">Phone number <span aria-hidden="true">(optional)</span></label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel"><p class="field-help">Used only when a print detail needs a quick answer.</p></div>
-              </div>
-            </fieldset>
-
-            <fieldset class="form-section">
-              <legend>Print information</legend>
-              <div class="form-grid">
-                <div class="field full"><label for="model-type">What are we making?</label><select id="model-type" name="modelType"><option value="existing">Print an existing online model</option><option value="custom">Create a custom model (+10%)</option></select><p class="field-help">This demo intentionally uses the platform-native select menu.</p></div>
-                <div class="field full" data-model-fields="existing"><label for="model-link">Thingiverse model number or URL</label><input id="model-link" name="modelLink" placeholder="6749943 or https://thingiverse.com/thing:6749943" data-required="true" data-error="model-link-error"><p class="field-error" id="model-link-error"></p></div>
-                <div class="field full" data-model-fields="custom" hidden><label for="model-details">Describe the custom model</label><textarea id="model-details" name="modelDetails" placeholder="A desk organizer with a phone stand and cable slot…" data-error="model-details-error"></textarea><p class="field-error" id="model-details-error"></p></div>
-                <div class="field full"><label for="notes">Additional notes <span aria-hidden="true">(optional)</span></label><textarea id="notes" name="notes" placeholder="Material, color, deadline, or assembly details…"></textarea></div>
-              </div>
-            </fieldset>
-
-            <fieldset class="form-section">
-              <legend>Budget and payment</legend>
-              <div class="form-grid">
-                <div class="field"><label for="budget">Budget in whole dollars</label><input id="budget" name="budget" inputmode="numeric" placeholder="35" data-required="true" data-error="budget-error"><p class="field-error" id="budget-error"></p></div>
-                <div class="field"><label for="payment">Preferred payment method</label><select id="payment" name="payment"><option>Venmo</option><option>Cash</option><option>Credit / debit card</option></select><p class="field-help">No payment is collected in this demo.</p></div>
-              </div>
-            </fieldset>
-
-            <div class="dialog-footer"><button class="button ghost" type="button" data-dialog-close>Cancel</button><button class="button primary" type="submit">Submit demo order</button></div>
-          </form>
+        function byebye() {
+            var overlay = document.getElementsByClassName('overlay');
+            overlay = overlay[0]
+            overlay.style.visibility = 'visible'; // Make overlay visible
+            overlay.style.opacity = '0'; // Fade in the overlay
+            overlay.style.bottom = '-100%'; // Move overlay up to fill the screen
+            setTimeout(() => {
+                location.href = "/"
+            }, 2000); // Adjust this timeout to match the duration of the previous transition
+        }
+    </script>
+    <canvas id="particleCanvas"></canvas>
+    <div class="accent-lines">
+        <div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
-
-        <section class="success-panel" data-order-confirmation hidden aria-live="polite">
-          <div class="success-icon" aria-hidden="true">✓</div>
-          <h3 tabindex="-1">Demo order captured</h3>
-          <p class="dialog-intro"><strong data-order-name></strong>, your sample request <strong data-order-reference></strong> has a working budget of <strong data-order-budget></strong>. In the original app, it would now appear in the Submissions queue.</p>
-          <div class="hero-actions"><button class="button" type="button" data-order-reset>Start another</button><a class="button primary" href="submissions.html">See it in the workflow</a></div>
-        </section>
-      </div>
+        <div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
-  </dialog>
+    <div class="heroSubP">
+        <p>Introducing</p>
+    </div>
+    <div class="hero">
+        <div class="heroT">
+            <h2>Printed</h2>
+            <h2>Printed</h2>
+        </div>
+    </div>
+    <p class="heroP">Irvington's #1 3D printing supplier.</p>
+    <div class="mountains">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="hero-spacer"></div>
+    <center>
+        <a href='#' onclick="transitionAllElements()" style="z-index: 10; border: 0; border-radius: 15px;" class='hu'>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>Create Order
+        </a>
+    </center>
+    <br>
+    <canvas id="threeCanvas"></canvas>
+    <!-- <script>
+        // Get the canvas by ID
+        const canvas2 = document.getElementById('threeCanvas');
+    
+        // Set up the scene, camera, and renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas2 });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    
+        // Create a geometry and material for the dots
+        const pointsMaterial = new THREE.PointsMaterial({ color: 0x00ff00, size: 0.1 });
+    
+        // Geometry to store the positions of the points
+        const geometry = new THREE.BufferGeometry();
+    
+        // A simple 3D benchy approximation with points (replace with your own model data)
+        const benchyPoints = [
+            [0, 0, 0], [1, 0, 0], [2, 0, 0], [3, 0, 0], [0, 1, 0], [0, 2, 0], [0, 3, 0],
+            [1, 1, 0], [2, 1, 0], [3, 1, 0], [1, 2, 0], [2, 2, 0], [3, 2, 0], [0, 0, 1], [1, 0, 1]
+        ];
+    
+        // Convert benchyPoints to Float32Array for BufferGeometry
+        const vertices = new Float32Array(benchyPoints.flat());
+        geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+    
+        // Center the geometry
+        geometry.computeBoundingBox();
+        const boundingBox = geometry.boundingBox;
+        const center = new THREE.Vector3();
+        boundingBox.getCenter(center);
+        geometry.translate(-center.x, -center.y, -center.z);
+    
+        // Create the point cloud
+        const points = new THREE.Points(geometry, pointsMaterial);
+        scene.add(points);
+    
+        // Create a web of lines between points
+        const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffffff, opacity: 0.5, transparent: true });
+        benchyPoints.forEach((start, idx) => {
+            benchyPoints.forEach((end, j) => {
+                if (idx !== j) {
+                    const lineGeometry = new THREE.BufferGeometry();
+                    const lineVertices = new Float32Array([...start, ...end]);
+                    lineGeometry.setAttribute('position', new THREE.BufferAttribute(lineVertices, 3));
+                    const line = new THREE.Line(lineGeometry, lineMaterial);
+                    scene.add(line);
+                }
+            });
+        });
+    
+        // Position the camera
+        const boundingSphere = geometry.boundingSphere || geometry.computeBoundingSphere();
+        const radius = boundingSphere.radius;
+        camera.position.z = radius * 2.5; // Ensure the object is fully visible
+        camera.lookAt(new THREE.Vector3(0, 0, 0)); // Point camera to center
+    
+        // Add some light for better visibility (optional)
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(1, 1, 1);
+        scene.add(directionalLight);
+    
+        // Animation loop to rotate the scene
+        function animate() {
+            requestAnimationFrame(animate);
+    
+            // Rotate the whole scene for some motion
+            scene.rotation.x += 0.01;
+            scene.rotation.y += 0.01;
+    
+            renderer.render(scene, camera);
+        }
+    
+        // Handle window resizing
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
+    
+        // Start the animation
+        animate();
+    </script> -->
+    
+    
+    <br>
 
-  <div class="toast" role="status" aria-live="polite" data-toast hidden></div>
+    <div class="content-section" style="padding-bottom: 0%; padding-top: 0%">
+        <div class="content-acc">
+            <div></div>
+            <div></div>
+        </div>
+        <p class="subt">Only the best</p>
+        <h3 class="title">Smooth. Sleek. Strong. Premium.</h3>
+        <p class="subp">Only made with the best filament. From the material to the finish, everything is only made with
+            the highest quality.</p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <center>
+            <img src='static/model.png' width='35%' id='noStyle'>
+        </center>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <center data-bs-theme="dark" class="second">
+            <div class="row">
+                <div class="col h-100">
+                    <div class="card" style="width: 18rem;">
+                        <img src="https://img.stablecog.com/insecure/1536w/aHR0cHM6Ly9iLnN0YWJsZWNvZy5jb20vY2ZhNmQ2YWItYjQ4MS00YmIwLTlkYjAtNzgwMzdlZDdhZTZmLmpwZWc.webp"
+                            class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Colin Heslin</h5>
+                            <p class="card-text fs-6"><span class="badge rounded-pill text-bg-primary">Website Design &
+                                    Functions</span><br>
+                            <p class="card-text fs-6"><span class="badge rounded-pill text-bg-info">3D
+                                    Prints</span><br><br><a href="mailto:colin.heslin@irvingtonschools.org">Email me</a>
+                                if you have any general questions. Customers may ask to communicate via phone number if
+                                they wish.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100" style="width: 18rem;">
+                        <img src="https://www.greatcanadiantrails.com/croppedImages/North-America/Canada/Banff-National-Park-2763333-1600px.jpg"
+                            class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Kavi Manchanda</h5>
+                            <p class="card-text fs-6">
+                            <p class="card-text fs-6"><span
+                                    class="badge rounded-pill text-bg-danger">Administrator</span><br>
+                            <p class="card-text fs-6"><span class="badge rounded-pill text-bg-info">3D
+                                    Prints</span><br><a href="mailto:kavi.manchanda@irvingtonschools.org">Email me</a>
+                                if you have any specific
+                                printing
+                                questions.</p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100" style="width: 18rem;">
+                        <img src="https://cdn.theatlantic.com/thumbor/zPjLr2iJmQmXa9fHPuP6w_ycz-c=/1500x998/media/img/photo/2016/06/earth-from-above-expedition-47-aboa/e01_ISS047E133215/original.jpg"
+                            class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Keane Nadler</h5>
+                            <p class="card-text fs-6">Print Addons<br>Custom 3D Modeler<br><a
+                                    href="mailto:keane.nadler@irvingtonschools.org">Email me</a> if you have any
+                                questions
+                                related
+                                to
+                                custom modeling.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card h-100" style="width: 18rem;">
+                        <img src="https://content.jwplatform.com/thumbs/AhG5YttF-720.jpg" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Matthew Berger</h5>
+                            <p class="card-text fs-6">Salesman<br>yep that's it.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </center>
+    </div>
+    <div class="footer-bottom">
+        <div class="container" id='foot'>
+            <div class="row" id='foot'>
+                <div class="col-lg-6 col-md-6 col-sm-12 column">
+                    <div class="copyright"><a href="https://chesdev.me/">Printed</a> &copy; 2024 All Rights Reserved</div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 column">
+                    <ul class="footer-nav">
+                        <li><a href="terms.html" id='footlink'>Terms of Service</a></li>
+                        <li><a href="privacy.html" id='footlink'>Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <!-- <script>
+        // Convert Base64 URL to Uint8Array
+function base64urlDecode(base64url) {
+    base64url = base64url.replace(/-/g, '+').replace(/_/g, '/');
+    const pad = base64url.length % 4;
+    if (pad) {
+        base64url += '='.repeat(4 - pad);
+    }
+    const str = atob(base64url);
+    const arr = new Uint8Array(str.length);
+    for (let i = 0; i < str.length; i++) {
+        arr[i] = str.charCodeAt(i);
+    }
+    return arr;
+}
+function bufferDecode(value) {
+    // Handle cases where the value might not be in base64url format
+    const base64 = value.replace(/_/g, '/').replace(/-/g, '+');
+    const binaryString = atob(base64);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+
+    for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+
+    return bytes;
+}
+function preformatPublicKeyCredentialCreateOptions(options) {
+    options.challenge = bufferDecode(options.challenge);
+    options.user.id = bufferDecode(options.user.id);
+
+    return options;
+}
+// Admin Registration Process
+async function adminRegister() {
+    try {
+        // Fetch registration options from the server
+        const registrationOptions = await fetch("/get-registration-options").then(res => res.json());
+
+        // Preformat the options for WebAuthn API (you may already have this)
+        const publicKey = preformatPublicKeyCredentialCreateOptions(registrationOptions);
+
+        // Create credentials
+        const credential = await navigator.credentials.create({ publicKey });
+
+        // Ensure rawId is converted to base64url before sending to the server
+        const rawId = bufferToBase64url(credential.rawId);
+        const clientDataJSON = bufferToBase64url(credential.response.clientDataJSON);
+        const attestationObject = bufferToBase64url(credential.response.attestationObject);
+
+        // Send registration details to the server for verification
+        const response = await fetch("/verify-registration", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: credential.id,
+                rawId: rawId, // Send rawId to the server
+                type: credential.type,
+                response: {
+                    clientDataJSON: clientDataJSON,
+                    attestationObject: attestationObject
+                }
+            })
+        });
+
+        if (response.ok) {
+            alert("Registration successful!");
+        } else {
+            alert("Registration failed: " + await response.text());
+        }
+    } catch (err) {
+        console.error("Error during registration:", err);
+    }
+}
+
+// Helper function to convert ArrayBuffer to base64url
+function bufferToBase64url(buffer) {
+    const base64String = btoa(String.fromCharCode(...new Uint8Array(buffer)));
+    return base64String.replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
+}
+
+
+        
+        // Admin Login
+        async function adminLogin() {
+            try {
+                const response = await fetch('/get-login-options');
+                const options = await response.json();
+        
+                function base64urlDecode2(base64url) {
+                    let base64 = base64url.replace(/-/g, '+').replace(/_/g, '/');
+                    let padding = '='.repeat((4 - base64.length % 4) % 4);
+                    base64 += padding;
+                    return Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+                }
+
+                options.challenge = base64urlDecode2(options.challenge);
+                // options.allowCredentials.forEach(cred => {
+                //     cred.id = Uint8Array.from(atob(cred.id), c => c.charCodeAt(0));
+                // });
+        
+                const credential = await navigator.credentials.get({ publicKey: options });
+        
+                const loginResponse = await fetch('/verify-authentication', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        id: credential.id,
+                        rawId: Array.from(new Uint8Array(credential.rawId)),
+                        type: credential.type,
+                        response: {
+                            clientDataJSON: Array.from(new Uint8Array(credential.response.clientDataJSON)),
+                            authenticatorData: Array.from(new Uint8Array(credential.response.authenticatorData)),
+                            signature: Array.from(new Uint8Array(credential.response.signature)),
+                            userHandle: credential.response.userHandle ? Array.from(new Uint8Array(credential.response.userHandle)) : null
+                        }
+                    })
+                });
+        
+                const result = await loginResponse.json();
+                if (result.status === "success") {
+                    alert('Login successful!');
+                } else {
+                    alert('Login failed.');
+                }
+        
+            } catch (error) {
+                console.error('Error during login:', error);
+            }
+        }
+        </script><button class="" onclick="adminRegister()"></button> -->
+    <div class="overlay" data-bs-theme="dark">
+        <form method='post' action='#' onsubmit="event.preventDefault(); alert('Demo mode: submission is disabled on GitHub Pages.');">
+            <div class="card text-center" style="margin-left: 3%; margin-right: 3%;">
+                <div class="card-header ">
+                    <h4 class="card-title">Order Menu</h4>
+                </div>
+                <div class="card-body --bs-secondary-color">
+                    <div style="margin-left: 3%; margin-right: 3%;">
+                        <label for="basic-url" class="form-label">Contact Information</label>
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control .bg-secondary.bg-gradient"
+                                        placeholder="Full Name" name='fullName' aria-label="Username" required
+                                        aria-describedby="basic-addon1">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control .bg-secondary.bg-gradient"
+                                        placeholder="Email" name='email' aria-label="Email Address" required
+                                        aria-describedby="basic-addon2">
+                                    <span class="input-group-text" id="basic-addon2">@irvingtonschools.org</span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">+1</span>
+                                    <input type="tel" class="form-control .bg-secondary.bg-gradient"
+                                        placeholder="(123) 456 - 7890" name='phoneNumber' aria-label="Phone Number"
+                                        aria-describedby="basic-addon2">
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <br>
+                        <label for="basic-url" class="form-label">Print Information</label>
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="customModelAddon" class="form-label">Would you like a custom-made
+                                            model? (10% additional cost)</label>
+                                        <select class="form-select .bg-secondary.bg-gradient" id="customModelAddon"
+                                            aria-label="Custom model addon" name='printStuff'>
+                                            <option value="no" selected>No</option>
+                                            <option value="yes">Yes</option>
+                                        </select>
+                                    </div>
+
+                                    <div id="customModelQuestions3" class="collapse">
+                                        <div class="mb-3">
+                                            <label for="modelImage" class="form-label">Link of image to refer to</label>
+                                            <input type="url" class="form-control .bg-secondary.bg-gradient"
+                                                id="modelImage" name="modelImage"
+                                                placeholder="https://fbi.cults3d.com/uploads/collection/shot_en/154/benchy_boat_slide.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div id="customModelQuestions2" class="collapse">
+                                        <label for="modelDetails" class="form-label">Find a 3D model online</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="basic-addon3">
+                                                <a href='https://www.thingiverse.com/?page=1&order_print=0&sort=popular&posted_after=now-30d'
+                                                    target="_blank">https://thingiverse.com/thing:</a>
+                                            </span>
+                                            <input type="number" class="form-control .bg-secondary.bg-gradient"
+                                                id="basic-url" required aria-describedby="basic-addon3 basic-addon4"
+                                                placeholder="6749943" name="thingiverseUrl">
+                                        </div>
+                                        <div class="form-text" id="basic-addon4">Remember to copy ONLY the numbers right
+                                            after the colon : at the end of the link.</div>
+                                    </div>
+                                    <div id="customModelQuestions" class="collapse">
+                                        <div class="mb-3">
+                                            <label for="modelDetails" class="form-label">Describe the custom model you'd
+                                                like</label>
+                                            <textarea class="form-control .bg-secondary.bg-gradient" id="modelDetails"
+                                                rows="1" placeholder="Enter your model description"
+                                                name="modelDetails"></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="modelSize" class="form-label">Size of Model</label>
+                                            <input type="text" class="form-control .bg-secondary.bg-gradient"
+                                                id="modelSize" name="modelSize"
+                                                placeholder="3in Wide 4in Length 6in Tall">
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div id="customModelQuestions4" class="collapse">
+                                    <div class="mb-3">
+                                        <label for="additionalNotes" class="form-label">Additional Notes</label>
+                                        <textarea class="form-control .bg-secondary.bg-gradient" name="additionalNotes"
+                                            id="additionalNotes" rows="3"
+                                            placeholder="Make sure part A and part B are printed separately..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <br>
+                    <label for="basic-url" class="form-label">Pricing</label>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="refer" class="form-label">Name of Referrer (Leave blank if N/A)</label>
+                                <select class="form-select .bg-secondary.bg-gradient" id="refer"
+                                    aria-label="Custom model addon" name='Referrer'>
+                                    <option value="None" selected>N/A</option>
+                                    <option value="Matthew">Matthew Berger</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="expectedAmount" class="form-label">Budget</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">$</span>
+                                <input type="text" class="form-control .bg-secondary.bg-gradient" id='expectedAmount'
+                                    aria-label="Amount (to the nearest dollar)" placeholder="25" name='budget' required>
+                                <span class="input-group-text">.00</span>
+                            </div>
+                            <div class="form-text" id="expectedAmountText">We will work to make the print match your
+                                budget
+                                by
+                                adjusting size, material, and quality. We will let you know if you're overpaying even
+                                after
+                                we
+                                use our highest quality materials.</div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="refer" class="form-label">Payment Method</label>
+                                <select class="form-select .bg-secondary.bg-gradient" id="payment"
+                                    aria-label="Custom model addon" name='Payment'>
+                                    <option value="Venmo" selected>Venmo</option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="Credit / Debit Card">Credit / Debit Card (Increased Fees)</option>
+                                </select>
+                            </div>
+                            <div class="form-text" id="expectedAmountText">You will not be paying now. We just need this
+                                information on record to account for certain costs such as transaction fees. Venmo and
+                                Cash are the best options to avoid these.<br>A maximum of $1.50 worth of coins are
+                                allowed for the cash option. The rest must be in dollar bills.</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card-footer text-body-secondary">
+                    <button type="button" class="btn btn-secondary" onclick="byebye()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit Order</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.getElementById('customModelAddon').addEventListener('change', function () {
+            const isYes = this.value === 'yes';
+
+            document.getElementById('modelSize').required = isYes;   // Required if YES
+            document.getElementById('modelDetails').required = isYes;   // Required if YES
+            document.getElementById('modelImage').required = isYes;   // Required if YES
+            document.getElementById('customModelAddon').required = isYes;   // Required if YES
+            document.getElementById('basic-url').required = !isYes;  // Required if NO
+        });
+
+        // Optional: Initial load to ensure correct state when the page loads
+        document.getElementById('customModelAddon').dispatchEvent(new Event('change'));
+    </script>
+    <script>
+        const customModelQuestions = document.getElementById('customModelQuestions');
+        const customModelQuestions2 = document.getElementById('customModelQuestions2');
+        const customModelQuestions3 = document.getElementById('customModelQuestions3');
+        const customModelQuestions4 = document.getElementById('customModelQuestions4');
+        new bootstrap.Collapse(customModelQuestions2, {
+            show: true
+        });
+        document.getElementById('customModelAddon').addEventListener('change', function () {
+            const selectedValue = this.value;
+            if (selectedValue === 'yes') {
+                new bootstrap.Collapse(customModelQuestions, {
+                    show: true
+                });
+                new bootstrap.Collapse(customModelQuestions2, {
+                    hide: true
+                });
+                new bootstrap.Collapse(customModelQuestions3, {
+                    hide: true
+                });
+                new bootstrap.Collapse(customModelQuestions4, {
+                    hide: true
+                });
+            } else {
+                new bootstrap.Collapse(customModelQuestions, {
+                    hide: true
+                });
+                new bootstrap.Collapse(customModelQuestions2, {
+                    show: true
+                });
+                new bootstrap.Collapse(customModelQuestions3, {
+                    show: true
+                });
+                new bootstrap.Collapse(customModelQuestions4, {
+                    show: true
+                });
+            }
+        });
+    </script>
 </body>
+
 </html>

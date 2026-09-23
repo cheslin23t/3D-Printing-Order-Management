@@ -2,10 +2,8 @@
 *{ box-sizing: border-box; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; scroll-behavior: smooth;}
 html, body { height: 100%; }
 
-html { scrollbar-color: #56647b #0c1020; scrollbar-width: thin; }
-html::-webkit-scrollbar { width: 12px; height: 12px; }
-html::-webkit-scrollbar-track { background: #0c1020; }
-html::-webkit-scrollbar-thumb { border: 3px solid #0c1020; border-radius: 999px; background: #56647b; }
+html::-webkit-scrollbar { display: none; }
+html { -ms-overflow-style: none; scrollbar-width: none; }
 
 body {
     margin: 0;
