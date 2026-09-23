@@ -1,72 +1,166 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html data-bs-theme="dark" lang="en" data-bss-forced-theme="dark">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b0e18">
-  <meta name="description" content="Static demo of the Printed submission review queue.">
-  <title>Submissions — Printed demo</title>
-  <link rel="icon" href="static/favicon.ico">
-  <link rel="stylesheet" href="static/demo.css">
-  <script src="static/demo.js" defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>3D Prints</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/css/theme.bootstrap_4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="static/Ludens---1-Dark-mode-Index-Table-with-Search-Filters.css">
+    <link rel="stylesheet" href="static/Navbar-Right-Links-icons.css">
 </head>
-<body class="admin-page">
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="admin-header">
-    <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">P</span><span>Printed</span></a>
-    <nav class="admin-nav" aria-label="Dashboard">
-      <a href="prints.html">Prints</a>
-      <a href="submissions.html" aria-current="page">Submissions</a>
-      <a href="index.html">Exit demo</a>
-    </nav>
-  </header>
 
-  <main class="admin-main" id="main">
-    <div class="admin-heading">
-      <div><span class="demo-pill">Demo mode</span><h1>Print submissions</h1><p>Review incoming requests before they become production records.</p></div>
-      <a class="button" href="index.html">Open customer order form</a>
+<body>
+    <!-- Modal Structure -->
+    <!-- Modal Structure -->
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messageModalLabel">Message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                Sample pending submissions loaded for demo.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
+</div>
+<!-- JavaScript to Trigger Modal -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Check if the modal body contains any message
+        var modalBody = document.getElementById('modalBody');
+        if (modalBody.textContent.trim() !== '') {
+            // Create a new Bootstrap modal instance
+            var messageModal = new bootstrap.Modal(document.getElementById('messageModal'));
+            // Show the modal
+            messageModal.show();
+        }
+    });
+</script>
 
-    <section class="metric-grid" aria-label="Submission summary">
-      <article class="metric-card"><strong>3</strong><p>Awaiting review</p></article>
-      <article class="metric-card"><strong>2</strong><p>Existing models</p></article>
-      <article class="metric-card"><strong>1</strong><p>Custom model request</p></article>
-    </section>
 
-    <section class="table-panel" aria-labelledby="pending-title">
-      <header class="table-toolbar"><div><h2 id="pending-title">Pending queue</h2><p>Fictional data shows the fields the original team reviewed.</p></div><span class="status info">Local demo data</span></header>
-      <div class="table-scroll">
-        <table class="data-table">
-          <caption>Pending customer print submissions</caption>
-          <thead><tr><th scope="col">ID</th><th scope="col">Submitted</th><th scope="col">Customer</th><th scope="col">Budget</th><th scope="col">Payment</th><th scope="col">Type</th><th scope="col">Request</th><th scope="col">Actions</th></tr></thead>
-          <tbody>
-            <tr data-row-id="209">
-              <td>#209</td><td>Jun 22, 2026</td><td>Avery Kim</td><td>$48</td><td>Venmo</td><td><span class="status warning">Custom</span></td><td>Desk organizer with phone stand</td>
-              <td class="row-actions"><button class="button small" type="button" data-detail-open data-row-id="209" data-title="Submission #209" data-details='{"Customer":"Avery Kim","Email":"avery@example.com","Phone":"(555) 019-9012","Budget":"$48","Payment":"Venmo","Referrer":"Matthew","Model":"Custom desk organizer","Size":"7 × 4 × 3 in","Notes":"Reinforce the handle for daily use."}'>Review</button><button class="button small success" type="button" data-confirm-open data-action="approve" data-row-id="209" data-confirm-title="Approve submission #209?" data-confirm-copy="In the real workflow, this creates an active print record assigned to the approving seller. This demo only removes the sample row." data-confirm-label="Approve" data-intent="success">Approve</button><button class="button small danger" type="button" data-confirm-open data-action="deny" data-row-id="209" data-confirm-title="Deny submission #209?" data-confirm-copy="The real workflow marks this request as denied. This demo only removes the sample row and does not contact anyone." data-confirm-label="Deny" data-intent="danger">Deny</button></td>
-            </tr>
-            <tr data-row-id="210">
-              <td>#210</td><td>Jun 23, 2026</td><td>Sam Patel</td><td>$30</td><td>Cash</td><td><span class="status info">Existing</span></td><td>Articulated crystal dragon</td>
-              <td class="row-actions"><button class="button small" type="button" data-detail-open data-row-id="210" data-title="Submission #210" data-details='{"Customer":"Sam Patel","Email":"sam@example.com","Phone":"Not provided","Budget":"$30","Payment":"Cash","Referrer":"None","Model":"Thingiverse 6642011","Size":"Original model size","Notes":"Prefer dark blue filament."}'>Review</button><button class="button small success" type="button" data-confirm-open data-action="approve" data-row-id="210" data-confirm-title="Approve submission #210?" data-confirm-copy="In the real workflow, this creates an active print record assigned to the approving seller. This demo only removes the sample row." data-confirm-label="Approve" data-intent="success">Approve</button><button class="button small danger" type="button" data-confirm-open data-action="deny" data-row-id="210" data-confirm-title="Deny submission #210?" data-confirm-copy="The real workflow marks this request as denied. This demo only removes the sample row and does not contact anyone." data-confirm-label="Deny" data-intent="danger">Deny</button></td>
-            </tr>
-            <tr data-row-id="214">
-              <td>#214</td><td>Jun 24, 2026</td><td>Riley Chen</td><td>$25</td><td>Credit / debit</td><td><span class="status info">Existing</span></td><td>Low-poly planter</td>
-              <td class="row-actions"><button class="button small" type="button" data-detail-open data-row-id="214" data-title="Submission #214" data-details='{"Customer":"Riley Chen","Email":"riley@example.com","Phone":"(555) 019-1440","Budget":"$25","Payment":"Credit / debit card","Referrer":"None","Model":"Thingiverse 2759439","Size":"5 in tall","Notes":"White filament; no rush."}'>Review</button><button class="button small success" type="button" data-confirm-open data-action="approve" data-row-id="214" data-confirm-title="Approve submission #214?" data-confirm-copy="In the real workflow, this creates an active print record assigned to the approving seller. This demo only removes the sample row." data-confirm-label="Approve" data-intent="success">Approve</button><button class="button small danger" type="button" data-confirm-open data-action="deny" data-row-id="214" data-confirm-title="Deny submission #214?" data-confirm-copy="The real workflow marks this request as denied. This demo only removes the sample row and does not contact anyone." data-confirm-label="Deny" data-intent="danger">Deny</button></td>
-            </tr>
-            <tr data-empty-row hidden><td class="empty-state" colspan="8">All demo submissions have been reviewed. Refresh to restore the sample queue.</td></tr>
-          </tbody>
+    <nav class="navbar navbar-expand-md bg-body-secondary py-3">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="index.html"><span
+                    class="bs-icon-sm bs-icon-rounded d-flex justify-content-center align-items-center me-2 bs-icon"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2"
+                        stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon icon-tabler icon-tabler-3d-cube-sphere"
+                        style="width: inherit;height: inherit;color: rgb(191,140,255);">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M6 17.6l-2 -1.1v-2.5"></path>
+                        <path d="M4 10v-2.5l2 -1.1"></path>
+                        <path d="M10 4.1l2 -1.1l2 1.1"></path>
+                        <path d="M18 6.4l2 1.1v2.5"></path>
+                        <path d="M20 14v2.5l-2 1.12"></path>
+                        <path d="M14 19.9l-2 1.1l-2 -1.1"></path>
+                        <path d="M12 12l2 -1.1"></path>
+                        <path d="M18 8.6l2 -1.1"></path>
+                        <path d="M12 12l0 2.5"></path>
+                        <path d="M12 18.5l0 2.5"></path>
+                        <path d="M12 12l-2 -1.12"></path>
+                        <path d="M6 8.6l-2 -1.1"></path>
+                    </svg></span><span style="font-size: 21px;">Printed</span></a><button data-bs-toggle="collapse"
+                class="navbar-toggler" data-bs-target="#navcol-2"><span class="visually-hidden">Toggle
+                    navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-2">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="prints.html">Prints</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="submissions.html" aria-current="page">Submissions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="extensions.html">Extensions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="sales.html">Sales</a></li>
+                </ul><a class="btn btn-primary ms-md-2" role="button" href="index.html">Logout</a>
+            </div>
+        </div>
+    </nav>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr></tr>
+            </thead>
+            <tbody>
+                <tr></tr>
+                <tr></tr>
+            </tbody>
         </table>
-      </div>
-    </section>
-  </main>
-
-  <dialog id="record-dialog" aria-labelledby="record-title">
-    <div class="dialog-shell"><header class="dialog-header"><h2 id="record-title" data-record-title>Submission details</h2><button class="icon-button" type="button" aria-label="Close submission details" data-dialog-close>×</button></header><div class="dialog-body"><dl class="dialog-detail-grid" data-record-body></dl></div><footer class="dialog-footer"><button class="button" type="button" data-dialog-close>Close</button></footer></div>
-  </dialog>
-
-  <dialog id="confirm-dialog" aria-labelledby="confirm-title">
-    <div class="dialog-shell"><header class="dialog-header"><h2 id="confirm-title" data-confirm-title>Confirm demo action</h2><button class="icon-button" type="button" aria-label="Close confirmation" data-dialog-close>×</button></header><div class="dialog-body"><p class="dialog-intro" data-confirm-copy></p></div><footer class="dialog-footer"><button class="button ghost" type="button" data-dialog-close>Cancel</button><button class="button" type="button" data-confirm-action>Continue</button></footer></div>
-  </dialog>
-
-  <div class="toast" role="status" aria-live="polite" data-toast hidden></div>
+    </div>
+    <h1 style="text-align: center;">Print Submissions</h1>
+    <p style="text-align: center;">These submissions require approval.</p>
+    <br>
+    <div class="container-fluid" style="margin-bottom: 50px;max-width: 85%;">
+        <div class="card" id="TableSorterCard" style="border-style: none;border-radius: 6.5px;">
+            <div class="card-header py-3" style="border-width: 0px;background: rgb(120, 126, 157);">
+                <div class="row table-topper align-items-center">
+                    <div class="col-12 col-sm-5 col-md-6 text-start" style="margin: 0px;padding: 5px 15px;">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive" style="border-top-style: none;background: #171921;">
+                        <table class="table table-striped table tablesorter table-bordered table-hover" id="ipi-table">
+                            <thead class="thead-dark"
+                                style="background: rgb(33,37,48);border-width: 0px;border-color: rgb(0,0,0);border-bottom-color: #21252F;">
+                                <tr style="border-style: none;border-color: rgba(255,255,255,0);background: #21252f;">
+                                    <th>ID</th>
+                                    <th>Date</th>
+                                    <th>Client</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Budget</th>
+                                    <th>Payment</th>
+                                    <th>Referrer</th>
+                                    <th>Custom Model</th>
+                                    <th>Additional Notes</th>
+                                    <th>Model Image</th>
+                                    <th>Model Size</th>
+                                    <th>Model Details</th>
+                                    <th>Thingiverse URL</th>
+                                    <th>Configure</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center" style="border-top-width: 0px;">
+                                <tr style="background: #262a38;">
+                                    <td>209</td><td>2026-06-22 14:35:00</td><td>Avery Kim</td><td>avery@example.com</td><td>+1 (555) 0199</td><td>$48</td><td>Venmo</td><td>Matthew</td><td>Yes</td><td>Handle should be reinforced for daily use.</td>
+                                    <td><a href="https://images.unsplash.com/photo-1533090161767-e6ffed986c88" target="_blank" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 100px;">Reference</a></td>
+                                    <td>7in x 4in x 3in</td><td>Desk organizer with phone stand slot.</td>
+                                    <td><a href="https://thingiverse.com/thing:6749943" target="_blank" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 100px;">View URL</a></td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#configureModal209">Configure</button>
+                                        <div class="modal fade" id="configureModal209" tabindex="-1" aria-labelledby="configureModalLabel209" aria-hidden="true">
+                                            <div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="configureModalLabel209">Configure Submission #209</h5><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body"><div class="btn-group" role="group" aria-label="Button group"><button class="btn btn-success me-2" type="button">Approve</button><button class="btn btn-danger me-2" type="button">Deny</button></div></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div></div></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="static/bs-init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/jquery.tablesorter.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/widgets/widget-filter.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/widgets/widget-storage.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script
+        src="static/Ludens---1-Dark-mode-Index-Table-with-Search-Filters-Ludens---1-Index-Table-with-Search--Sort-Filters-v20-1.js"></script>
+    <script
+        src="static/Ludens---1-Dark-mode-Index-Table-with-Search-Filters-Ludens---1-Index-Table-with-Search--Sort-Filters-v20.js"></script>
+    <script src="static/Ludens---1-Dark-mode-Index-Table-with-Search-Filters-main.js"></script>
 </body>
+
 </html>
