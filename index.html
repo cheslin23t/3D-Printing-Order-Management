@@ -719,6 +719,37 @@ function bufferToBase64url(buffer) {
             }
         });
     </script>
+
+    <style>
+        .portfolio-demo-dialog { width: min(520px, calc(100% - 32px)); max-height: calc(100dvh - 32px); padding: 0; border: 1px solid #ff8b36; border-radius: 18px; color: #f8f8f8; background: #19191d; box-shadow: 0 24px 80px rgba(0,0,0,.65); }
+        .portfolio-demo-dialog::backdrop { background: rgba(0,0,0,.78); }
+        .portfolio-demo-card { padding: clamp(24px, 5vw, 38px); font: 16px/1.5 system-ui, sans-serif; }
+        .portfolio-demo-eyebrow { color: #ff9b50; font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+        .portfolio-demo-card h2 { margin: 12px 0; font-size: clamp(25px, 5vw, 34px); line-height: 1.15; }
+        .portfolio-demo-card p { margin: 0 0 24px; }
+        .portfolio-demo-continue { min-height: 48px; padding: 11px 20px; border: 0; border-radius: 6px; color: #19191d; background: #ff9b50; font: 700 16px system-ui, sans-serif; cursor: pointer; }
+        .portfolio-demo-continue:hover { background: #ffb27c; }
+        .portfolio-demo-continue:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+    </style>
+    <dialog class="portfolio-demo-dialog keep overlay" aria-labelledby="portfolio-demo-title" aria-describedby="portfolio-demo-description">
+        <div class="portfolio-demo-card keep">
+            <span class="portfolio-demo-eyebrow keep">From Colin Heslin’s portfolio</span>
+            <h2 id="portfolio-demo-title" class="keep">This is a project demo</h2>
+            <p id="portfolio-demo-description" class="keep">Printed shows the order and admin experience I built for a 3D printing business. This portfolio version is a static preview: submitting an order or signing in will not create a real request.</p>
+            <button type="button" class="portfolio-demo-continue keep">Explore the demo</button>
+        </div>
+    </dialog>
+    <script>
+        (() => {
+            const dialog = document.querySelector(".portfolio-demo-dialog");
+            const key = "printed-portfolio-notice-v1";
+            try { if (sessionStorage.getItem(key)) return; } catch (_) {}
+            const remember = () => { try { sessionStorage.setItem(key, "seen"); } catch (_) {} };
+            dialog.querySelector("button").addEventListener("click", () => { remember(); dialog.close(); });
+            dialog.addEventListener("cancel", remember);
+            dialog.showModal();
+        })();
+    </script>
 </body>
 
 </html>
