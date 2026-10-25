@@ -1,0 +1,97 @@
+/* Presentation of the original document when embedded in ches.dev. */
+html.portfolio-embed {
+  overflow-x: hidden;
+  scrollbar-width: auto;
+  scrollbar-color: #777f92 #121521;
+}
+html.portfolio-embed::-webkit-scrollbar {
+  display: block;
+  width: 10px;
+}
+html.portfolio-embed::-webkit-scrollbar-thumb {
+  background: #777f92;
+  border-radius: 5px;
+}
+html.portfolio-embed::-webkit-scrollbar-track {
+  background: #121521;
+}
+.portfolio-embed body {
+  overflow-x: clip;
+}
+.portfolio-embed .demo-nav-actions,
+.portfolio-embed #loginModal {
+  display: none;
+}
+.portfolio-embed .hu {
+  font-size: 18px;
+  padding: 18px 24px;
+}
+.portfolio-embed .content-section .row {
+  margin: 0;
+  gap: 16px;
+  justify-content: center;
+}
+.portfolio-embed .content-section .col {
+  flex: 0 1 18rem;
+  padding: 0;
+}
+.portfolio-embed .content-section .card {
+  max-width: 100%;
+}
+.portfolio-embed .overlay {
+  display: none;
+}
+.portfolio-embed .order-open > :not(nav, .overlay, script) {
+  display: none;
+}
+.portfolio-embed .order-open .overlay {
+  display: block;
+  position: relative;
+  bottom: auto;
+  height: auto;
+  z-index: 1;
+  visibility: visible;
+  opacity: 1;
+  padding: 20px 0;
+  transition: none;
+}
+.portfolio-embed .overlay .row {
+  display: block;
+}
+.portfolio-embed .overlay .col {
+  width: 100%;
+}
+.portfolio-embed .overlay .input-group {
+  flex-wrap: wrap;
+}
+.portfolio-embed .overlay .input-group-text {
+  white-space: normal;
+}
+.portfolio-embed .overlay input,
+.portfolio-embed .overlay select,
+.portfolio-embed .overlay button {
+  min-height: 44px;
+}
+.portfolio-embed .overlay textarea {
+  min-height: 80px;
+}
+.portfolio-embed :focus-visible {
+  outline: 3px solid #ff9b50;
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-embed *,
+  .portfolio-embed *::before,
+  .portfolio-embed *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}
+.portfolio-embed .accent-lines,
+.portfolio-embed .mountains,
+.portfolio-embed .content-acc {
+  overflow: clip;
+  max-width: 100%;
+}
