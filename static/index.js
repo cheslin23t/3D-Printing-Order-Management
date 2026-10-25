@@ -129,8 +129,10 @@ function onResize() {
 window.addEventListener('resize', onResize);
 
 // Initialize particles and start animation
-initParticles();
-animate();
+if (!document.documentElement.classList.contains('portfolio-embed')) {
+    initParticles();
+    animate();
+}
 
 // Navbar height handling (optional)
 const navbar = document.querySelector('.navbar');
