@@ -20,11 +20,13 @@
     </script>
     <link rel="stylesheet" href="static/index.css">
     <link rel="stylesheet" href="static/portfolio-embed.css">
+  <link rel="stylesheet" href="https://ches.dev/static/keyboard.css" />
+  <script src="https://ches.dev/static/keyboard.js" defer></script>
 </head>
 
-<body class="halloween">
+<body data-ches-keyboard="printed" class="halloween">
     <script src="static/index.js" defer></script>
-    <nav class="navbar bg-dark keep" data-bs-theme="dark">
+    <nav data-ches-keyboard-mount class="navbar bg-dark keep" data-bs-theme="dark">
         <a class="navbar-brand keep" href="#">
             <div class="navbarT keep">
                 <h2 onclick="document.body.classList.toggle('gold');" class="keep">Printed</h2>
@@ -76,7 +78,8 @@
             elements.forEach((element, index) => {
                 const tagName = element.tagName;
                 const classList = Array.from(element.classList);
-                if (classParent(element, "overlay") != undefined) {
+                if (classParent(element, "overlay") != undefined ||
+                    element.closest(".ches-keys-dialog, .ches-keys-trigger")) {
                     return
                 }
                 // Skip elements if they match the exceptions
@@ -125,6 +128,7 @@
                 overlay.style.visibility = 'visible'; // Make overlay visible
                 overlay.style.opacity = '1'; // Fade in the overlay
                 overlay.style.bottom = '-10%'; // Move overlay up to fill the screen
+                overlay.querySelector("input")?.focus({ preventScroll: true });
             }, 1000); // Adjust this timeout to match the duration of the previous transition
             // Optionally, clear the elements after transition is done
         }
@@ -179,7 +183,7 @@
     </div>
     <div class="hero-spacer"></div>
     <center>
-        <a href='#' onclick="transitionAllElements()" style="z-index: 10; border: 0; border-radius: 15px;" class='hu'>
+        <a id="open-order-form" href='#' onclick="transitionAllElements()" style="z-index: 10; border: 0; border-radius: 15px;" class='hu'>
             <span></span>
             <span></span>
             <span></span>
@@ -521,7 +525,7 @@ function bufferToBase64url(buffer) {
         }
         </script><button class="" onclick="adminRegister()"></button> -->
     <div class="overlay" data-bs-theme="dark">
-        <form method='post' action='#' onsubmit="event.preventDefault(); document.getElementById('order-status').hidden = false;">
+        <form id="order-form" method='post' action='#' onsubmit="event.preventDefault(); document.getElementById('order-status').hidden = false;">
             <div class="card text-center" style="margin-left: 3%; margin-right: 3%;">
                 <div class="card-header ">
                     <h4 class="card-title">Order Menu</h4>
